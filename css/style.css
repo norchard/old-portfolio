@@ -427,7 +427,7 @@ body{
 }
 
 .arrow {
-   	margin-top: 300px;
+   	margin-top: 80px;
 }
 
 }
@@ -440,7 +440,7 @@ body{
 	padding-bottom: 30px;
 	right: 0px;
 	bottom: 0;
-	margin: -40px auto 0 auto;
+	margin: 0px auto;
 }
 
 body{
@@ -568,7 +568,7 @@ button{
 }*/
 
 body{
-	font-size: 14px;
+	font-size: 16px;
 }
 
 input, textarea{
@@ -576,9 +576,22 @@ input, textarea{
 }
 
 .workintrowrap{
-	width: 95%;
+	width: 70%;
 	max-width: 500px;
 	float: center;
+}
+
+.workintro{
+	margin-top: 0;
+	padding-top: 20px;
+}
+
+.arrow-right {
+    margin-right: 20px;
+}
+
+.arrow-left {
+    margin-left: 20px;
 }
 
 .work{
@@ -588,7 +601,7 @@ input, textarea{
 
 .thumbnail{
 	max-width: 100%;
-	margin: 20px auto;
+	margin: 10px auto;
 }
 
 #tiles {
@@ -599,9 +612,6 @@ input, textarea{
 	font-size: 16px;
 }
 
-}
-
-@media only screen and (max-width : 500px){
 p{
 	text-align: justify;
 	padding: 0 30px;
@@ -610,7 +620,10 @@ p{
 .section p{
 	padding: 0;
 }
-}
 
+#tiles{
+	margin-bottom: 20px;
+}
+}
 
 
