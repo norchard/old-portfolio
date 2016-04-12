@@ -73,6 +73,51 @@ $(window).scroll(function() {
 });
 
 
+$(document).ready(function(){
+    $('#showpots').hover(function() {
+    $( '#profile').attr("src","/img/clay.png");
+},
+function(){
+        $( '#profile').attr("src","/img/profile.jpeg");
+    });
+});
+
+$(document).ready(function(){
+    $('#showportrait').hover(function() {
+    $( '#profile').attr("src","/img/portrait.png");
+},
+function(){
+        $( '#profile').attr("src","/img/profile.jpeg");
+    });
+});
+
+
+// var img = $('#profile');
+// var originalSrc = img.attr('/img/profile.png');
+
+// $('#showpots').on({
+//     mouseenter: function () {
+//         img.attr('src',$(this).data('/img/clay.png'));
+//     },
+
+//     mouseleave: function () {
+//         img.attr('src',originalSrc);
+//     }
+// });
+
+// function showpots() {
+//     document.getElementById("profile").src="/img/clay.png";
+// };
+
+// showpots();
+
+// "#showpots".addEventListener("onmouseover", showpots);
+
+
+
+
+
+
 
 $(function() {
   $('a[href*="#"]:not([href="#"])').click(function() {
