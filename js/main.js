@@ -91,6 +91,15 @@ function(){
     });
 });
 
+$(document).ready(function(){
+    $('#showview').hover(function() {
+    $( '#profile').attr("src","/img/view.jpg");
+},
+function(){
+        $( '#profile').attr("src","/img/profile.jpeg");
+    });
+});
+
 
 // var img = $('#profile');
 // var originalSrc = img.attr('/img/profile.png');
