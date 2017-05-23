@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nicole Orchard</title>
     <link href="/styles/main.css" rel="stylesheet">
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS feed">
     <script src="https://use.typekit.net/qnt8nxq.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.eot"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     <script>
@@ -21,31 +24,55 @@
       ga('send', 'pageview');
 
     </script>
+    <script>
+      function logoClick(){
+        if (document.getElementsByClassName("dark").length > 0){
+          document.body.classList.remove("dark");
+        } else {
+          document.body.className = "dark";
+        }
+
+      }
+    </script>
   </head>
-  <body>
+  <body class="">
     <div class="container">
       <div class="nav">
   <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
-  <h4><img class="logo" src="/img/nicole_web.svg" type="image/svg+xml"/><a href="/">Nicole Orchard</a></h4>
+  <!-- <h4><img class="logo" src="/img/nicole_web.svg" type="image/svg+xml"/><a href="/">Nicole Orchard</a></h4> -->
+  <h4><div id="logo" class="logo" onClick="logoClick();"></div><a href="/">Nicole Orchard</a></h4>
 </div>
 
       <div class="row">
   <div class="col-lg-12 dog">
-    <h1 class="intro">I'm a web developer</br> with a design background.</h1>
+    <h1 class="intro">Designer turned<br> software engineer.</h1>
   </div>
   <!-- <div class="col-md-4">
   </div> -->
 </div>
 
 <hr>
-
 <div class="row">
   <div class="col-lg-4">
-    <h2>Recent Projects</h2>
+    <h4>Blog</h4>
+  </div>
+  <!-- <ul>
+    
+  </ul> -->
+  <div class="col-lg-8">
+  
+  </div>
+</div>
+
+
+<hr>
+<div class="row">
+  <div class="col-lg-4">
+    <h4>Recent Projects</h4>
   </div>
     <div class="col-lg-4 col-md-6 col-sm-6">
       <h3><a href="/projects/twitter_feels/index.html">Twitter Feels <span class="glyphicon glyphicon-share-alt"></span></a></h3>
-      <p>Data visualization project written in Javascript and Ruby using Twitter's API, Google's Natural Language Processing API, and Dimple, a D3-powered charting API.</p>
+      <p>Data visualization written in Javascript and Ruby using Twitter's API, Google's Natural Language Processing API, and a D3-powered charting API.</p>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-6">
       <h3><a href="https://rsvp-here.herokuapp.com/">RSVP App <span class="glyphicon glyphicon-share-alt"></span></a></h3>
@@ -54,49 +81,19 @@
 </div>
 
 <hr>
-<div class="row">
+<div class="row home">
   <div class="col-lg-4">
-    <h2>Design Work</h2>
+    <h4>Design Work</h4>
   </div>
   <div class="col-lg-8">
   
-      <a href="/work/tec.html">
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="thumbnail">
-            <img src="/img/work/tec_small.png">
-            <div class="caption">
-              <h3>TEC</h3>
-              <p>Branding, illustration, and visual design for a the Technology for Education Consortium, whose mission is to create an effective technology procurement system for schools.</p>
-            </div>
-            <div class="view">
-              View Project
-            </div>
-          </div>
-        </div>
-      </a>
-  
-      <a href="/work/ko.html">
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="thumbnail">
-            <img src="/img/work/ko_small.png">
-            <div class="caption">
-              <h3>Kulen Outreach</h3>
-              <p>Branding, information architecture and visual design for a Cambodia-based non-profit whose mission is to bring quality education to rural children.</p>
-            </div>
-            <div class="view">
-              View Project
-            </div>
-          </div>
-        </div>
-      </a>
-  
-      <a href="/work/ja.html">
+      <a href="/design/junior-academy">
         <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="thumbnail">
             <img src="/img/work/ja_small.png">
             <div class="caption">
               <h3>The Junior Academy</h3>
-              <p>Branding, information architecture, and visual design for a virtual program for high school students around the globe who are interested in persuing STEM careers.</p>
+              <p>Branding, information architecture, and visual design for a virtual STEM research program for high school students around the globe.</p>
             </div>
             <div class="view">
               View Project
@@ -105,13 +102,43 @@
         </div>
       </a>
   
-      <a href="/work/nbcu.html">
+      <a href="/design/kulen-outreach">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="thumbnail">
+            <img src="/img/work/ko_small.png">
+            <div class="caption">
+              <h3>Kulen Outreach</h3>
+              <p>Branding, information architecture and visual design for a non-profit whose mission is to bring quality education to rural Cambodian children.</p>
+            </div>
+            <div class="view">
+              View Project
+            </div>
+          </div>
+        </div>
+      </a>
+  
+      <a href="/design/nbc-universal">
         <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="thumbnail">
             <img src="/img/work/nbcu_small.png">
             <div class="caption">
               <h3>NBCUniversal</h3>
-              <p>Information architecture and visual design for the portfolio website of the Content Innovation Agency, which is responsible for coordinating branded content across NBCU's networks.</p>
+              <p>Information architecture and visual design for the Content Innovation Agency (CIA) portfolio of branded content across NBCU's networks.</p>
+            </div>
+            <div class="view">
+              View Project
+            </div>
+          </div>
+        </div>
+      </a>
+  
+      <a href="/design/technology-for-education-consortium">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="thumbnail">
+            <img src="/img/work/tec_small.png">
+            <div class="caption">
+              <h3>TEC</h3>
+              <p>Branding, illustration, and visual design for the Technology for Education Consortium, an education technology non-profit.</p>
             </div>
             <div class="view">
               View Project
@@ -123,13 +150,14 @@
   </div>
 </div>
 
-      <div class="footer">
+      <div class="row footer">
   <hr>
   <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
   <a href="https://nicoleorchard.tumblr.com" target="_blank"><i class="fa fa-tumblr-square" style="font-size:30px"></i></a>
   <a href="https://github.com/norchard" target="_blank"><i class="fa fa-github" style="font-size:32px"></i></a>
   <a href="https://www.instagram.com/norchardpie/" target="_blank"><i class="fa fa-instagram" style="font-size:32px"></i></a>
   <a href="https://www.linkedin.com/in/nicole-orchard-6441b157" target="_blank"><i class="fa fa-linkedin-square" style="font-size:32px"></i></a>
+  <a href="https://twitter.com/norchard" target="_blank"><i class="fa fa-twitter-square" style="font-size:32px"></i></a>
 
 </div>
 
