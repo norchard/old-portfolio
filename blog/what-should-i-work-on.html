@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nicole Orchard</title>
+    <link href="/styles/main.css" rel="stylesheet">
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS feed">
+    <script src="https://use.typekit.net/qnt8nxq.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.eot"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-52470404-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script>
+      function logoClick(){
+        if (document.getElementsByClassName("dark").length > 0){
+          document.body.classList.remove("dark");
+        } else {
+          document.body.className = "dark";
+        }
+
+      }
+    </script>
+  </head>
+  <body class="">
+    <div class="container">
+      <div class="nav">
+  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
+  <!-- <h4><img class="logo" src="/img/nicole_web.svg" type="image/svg+xml"/><a href="/">Nicole Orchard</a></h4> -->
+  <h4><div id="logo" class="logo" onClick="logoClick();"></div><a href="/">Nicole Orchard</a></h4>
+</div>
+
+      <div class="post col-lg-7">
+    <h1 style="margin-bottom: 0px;">What Should I Work On?</h1>
+    <!-- <span style="font-size: 20px; padding-right:10px;"></span> -->
+    <h3 style="font-size: 24px; margin-top: 0px;">A Mini Guide for New Programmers</h3>
+    <p>May 23, 2017</p>
+    <hr>
+  <p>Last year I was a web designer with a time-consuming programming pastime. In August I left my job to travel and study full-time. This post is about what I have learned from nine months of self-study and the resources I used.</p>
+
+<h3 id="bootcamps-might-not-be-for-you">Bootcamps might not be for you</h3>
+<p>Bootcamps are great for people with financial resources who want to dive into web development without previous technical experience. I opted out of doing a bootcamp for three reasons:</p>
+<ul>
+  <li>They are expensive.</li>
+  <li>I already knew HTML, CSS, and some Javascript. Part of any bootcamp’s curriculum would have been redundant for me.</li>
+  <li>Bootcamps tend to focus on web-dev-specific tools, not computer science fundamentals.</li>
+</ul>
+
+<h3 id="self-study-is-free-but-hard">Self-study is free, but hard</h3>
+<p>Self-discipline can be an obstacle to self-study, but it’s a straightforward one. You have a list of things you want to accomplish. Maybe you reward yourself for checking items off your list: Do your to-dos; eat some ice cream.</p>
+
+<p>Self-structure is a less straightforward obstacle. How do you decide what to put on your list? Usually, you have high-level goals that you need to break down into manageable to-dos. I want to be a web developer. Should I learn Python? Should I learn Ruby? What is React??</p>
+
+<p>Being an absolute beginner to programming is kind of like looking at the earth from space while planning a journey across it. Blue, green, and brown forms might hint at what’s down there, but they don’t give you much insight into navigating the landscape. There are steep mountains and angry oceans (programming is hard!) and knowing where to start and what direction to move in can make the difference between floundering for months and making significant progress (I’ve done both.)</p>
+
+<h3 id="a-few-pointers-go-a-long-way">A few pointers go a long way</h3>
+<p>This is where help comes in! Ask someone with a lot of programming experience for guidance. I am not that person, but I will pass on advice from much smarter and more experienced people than myself:</p>
+
+<ol>
+  <li>
+    <p><a href="https://computers.tutsplus.com/tutorials/navigating-the-terminal-a-gentle-introduction--mac-3855">Get comfortable using your terminal</a>. Start with creating and navigating directories using <code class="highlighter-rouge">pwd</code>, <code class="highlighter-rouge">mkdir</code>, <code class="highlighter-rouge">cd</code>, <code class="highlighter-rouge">ls</code>. Read the man pages!</p>
+  </li>
+  <li>
+    <p>Pick one language and learn it well. This could be Ruby, Python, Javascript. Some languages lend themselves better to particular applications because of their communities, but all of them use similar logic. Last year I knew how to write Javascript from mimicking tutorials, but I didn’t really understand how it worked. A lot of beginners echo this sentiment. Tutorials feel productive because you end up with a finished product, but they won’t teach you how to program. Find a introductory book for your language and read it cover to cover. Run example programs on your machine. (The first language I learned well was C. I really enjoyed learning C because the language taught me about memory management. If you’re not interested in low level topics, pick Ruby or Python.)</p>
+  </li>
+  <li>
+    <p>Write as much code as you can and don’t stress over finding the perfect project. You can find exercises on sites like <a href="www.hackerrank.com">HackerRank</a> or <a href="leetcode.com">Leetcode</a>. For starter projects implement games like tic-tac-toe, rock-paper-scissors, or connect four. Online courses are good for having access to problem sets. (Video lectures also serve as a nice break from reading, but you should still read a book!)</p>
+  </li>
+  <li>
+    <p>Forget frameworks. (React is a framework!) I tried to learn Ruby on Rails before having a strong command of Ruby. It was overwhelming and distracting. Instead, write small programs from scratch. For web applications, use a microframework like Sinatra for Ruby or Flask for Python.</p>
+  </li>
+  <li>
+    <p>Read the docs! There is well maintained documentation for the language you are learning or that new library you are using. While it’s tempting to start with a blog post or a tutorial (I know documentation sometimes feels like a dry instruction manual) – spending a little more time with the documentation always pays off.</p>
+  </li>
+  <li>
+    <p>Bugs are a great way to learn. Embrace them and remember that the answer is almost always in the error message. This is something that I re-learn on a weekly basis.</p>
+  </li>
+</ol>
+
+<h3 id="find-resources-you-love">Find resources you love</h3>
+<p>Don’t stick with a resource if you are miserable. There are so many resources readily available online. Every programming book I’ve read was delightful in some way. Don’t read a boring book! I’ve waded through a lot of online courses and books. Here’s the stuff that worked for me:</p>
+
+<ul>
+  <li>
+    <p><a href="https://www.edx.org/course/introduction-computer-science-harvardx-cs50x">Harvard’s CS50 course</a> is an amazing introduction to computer science complete with lectures, problem sets, reading material, and an IDE. It covers topics ranging from search algorithms to web development. David Malan is brilliant in his ability to simplify and gamify complex topics for the computer science beginner. Take advantage and do all the problem sets—this is the most structure you’ll get while studying on your own.</p>
+  </li>
+  <li>
+    <p><a href="https://www.amazon.com/Programming-3rd-Stephen-G-Kochan/dp/0672326663">Programming in C</a> is a succinct introduction to C and a great accompaniment to CS50. I started out reading C Programming Absolute Beginner’s Guide, but it was too slow for me. Pick what works for you!</p>
+  </li>
+  <li>
+    <p><a href="https://www.amazon.com/Cuckoos-Egg-Tracking-Computer-Espionage/dp/1416507787">The Cuckoo’s Egg</a> is a true crime novel about tracking hackers in the 1970’s. Anyone who thinks computing can’t be dramatic needs to read this book. It’s a really fun read when you are learning C because the technology is so dated—it’s easy to understand the systems Stoll is working on.</p>
+  </li>
+  <li>
+    <p><a href="http://pages.cs.wisc.edu/~remzi/OSTEP/">The Comet Book</a> is an awesome resource for learning about operating systems and a great technical reference. I skipped around in it while following along with lectures from Berkeley’s Introduction to Operating Systems. I recently came back to the Event Based Concurrency chapter while learning about the difference between Nginx and Apache servers. It is really well written.</p>
+  </li>
+  <li>
+    <p><a href="http://poignant.guide/">Why’s Poignant Guide to Ruby</a> is a whimsical illustrated overview of the Ruby language. I picked up some cool tricks for remembering syntax, like that an argument passed to a block slides down a waterslide into the block <code class="highlighter-rouge"><span class="p">{</span><span class="err">|x|</span><span class="w"> </span><span class="err">x</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code>. It’s not a comprehensive introduction, but it’s a lot of fun to read.</p>
+  </li>
+  <li>
+    <p><a href="https://pragprog.com/book/ruby/programming-ruby">The Pickaxe Book</a> is a comprehensive introduction to Ruby.</p>
+  </li>
+  <li>
+    <p><a href="https://www.amazon.com/Code-Language-Computer-Hardware-Software/dp/0735611319">Code</a> is possibly my favorite book of all time. It walks through the construction of a computer starting with a single wire and a lightbulb, building circuits using digital logic, and finally reaching the operating system. The thing is: this book reads like a novel. It is not a technical reference. Read the whole thing from start to finish—you won’t regret it!
+<!-- - [Nand2Tetris][8] is cool. --></p>
+  </li>
+</ul>
+
+<h3 id="computer-friends-are-the-best">Computer friends are the best</h3>
+<p>Computer friends are nice, quirky, and excellent resources. Talking through code is a great debugging strategy and it’s fun to find out you’ve been pronouncing <code class="highlighter-rouge">chmod</code> weird. When I started learning I didn’t know many programmers, so I joined groups like <a href="https://www.girldevelopit.com">Girl Develop It</a> and <a href="https://www.womenwhocode.com/">Women Who Code</a>.<br />
+If you’re excited about programming and want to make a lot more computer friends, consider applying to <a href="https://www.recurse.com/">the Recurse Center</a>!</p>
+
+
+</div>
+<!-- <div class="post col-lg-5">
+</div> -->
+
+      <div class="row footer">
+  <hr>
+  <div class="rc-scout"></div>
+  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
+  <a href="https://nicoleorchard.tumblr.com" target="_blank"><i class="fa fa-tumblr-square" style="font-size:30px"></i></a>
+  <a href="https://github.com/norchard" target="_blank"><i class="fa fa-github" style="font-size:32px"></i></a>
+  <a href="https://www.instagram.com/norchardpie/" target="_blank"><i class="fa fa-instagram" style="font-size:32px"></i></a>
+  <a href="https://www.linkedin.com/in/nicole-orchard-6441b157" target="_blank"><i class="fa fa-linkedin-square" style="font-size:32px"></i></a>
+  <a href="https://twitter.com/norchard" target="_blank"><i class="fa fa-twitter-square" style="font-size:32px"></i></a>
+
+</div>
+
+    </div>
+    <script async defer src="https://www.recurse-scout.com/loader.js?t=12f65113d9513ac795102fb8f3c08a6a"></script>
+  </body>
+</html>
