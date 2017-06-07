@@ -27,12 +27,19 @@
     <script>
       function logoClick(){
         if (document.getElementsByClassName("dark").length > 0){
-          document.body.classList.remove("dark");
+          document.body.classList.remove("dark")
+          sessionStorage.setItem('mode', 'light')
         } else {
-          document.body.className = "dark";
+          document.body.className = "dark"
+          sessionStorage.setItem('mode', 'dark')
         }
-
       }
+
+      document.addEventListener("DOMContentLoaded", function(event) {
+        if (sessionStorage.getItem('mode') == "dark"){
+          document.body.className = "dark"
+        }
+      })
     </script>
   </head>
   <body class="">
