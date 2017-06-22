@@ -7,6 +7,118 @@
 		<atom:link href="https://nicoleorchard.com/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Package Managers</title>
+				<description>&lt;p&gt;If you want to draw for the first time, someone might hand you a piece of paper and a pencil. They won’t spend time discussing where the paper and pencil came from. Instead, they’ll tell you about line, form, and negative space. If you want to write a Python program for the first time, someone might run the following commands on your machine:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ apt install python3
+$ pip3 install ipython
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Then they would open iPython and show you some basic Python syntax.&lt;/p&gt;
+
+&lt;p&gt;Package management is often glossed over because programming is the writing of programs, not the installing of programs. However, programming is also the organization of programs… and it actually &lt;em&gt;is&lt;/em&gt; the installing of programs, sometimes. After spending over a year installing and uninstalling (but mostly installing) packages using brew, gem, and npm on my mac, I finally learned how package managers work on a virtual machine running Ubuntu. Understanding how package management works was a pretty satisfying ‘aha!’ moment for me, so I hope it is for you too.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-a-package-manager&quot;&gt;What is a Package Manager?&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A &lt;em&gt;package manager&lt;/em&gt; keeps track of what software is installed on your computer, and allows  you to easily install new software, upgrade software to newer versions, or remove software that you previously installed. As the name suggests, package managers deal with &lt;em&gt;packages&lt;/em&gt;: collections of files that are bundled together and can be installed and removed as a group.
+– &lt;a href=&quot;http://aptitude.alioth.debian.org/doc/en/pr01s02.html&quot;&gt;Aptitude User Manual&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;There are essentially two types of package managers:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;System-level package managers&lt;/strong&gt; are highly integrated into the operating system.
+  Ubuntu is a flavor of the Debian Linux distribution, which means it uses &lt;code class=&quot;highlighter-rouge&quot;&gt;dpkg&lt;/code&gt;, the Debian package manager. &lt;code class=&quot;highlighter-rouge&quot;&gt;dpkg&lt;/code&gt; is a low level tool that is used to install, remove, and provide information about individual .deb packages. Some packages depend on other packages, but &lt;code class=&quot;highlighter-rouge&quot;&gt;dpkg&lt;/code&gt; doesn’t manage dependencies. User friendly frontend tools like &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; manage package dependencies and versioning decisions. Both &lt;code class=&quot;highlighter-rouge&quot;&gt;dpkg&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; come pre-installed with Ubuntu. &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude&lt;/code&gt; is another frontend to &lt;code class=&quot;highlighter-rouge&quot;&gt;dpkg&lt;/code&gt; based on &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt;, with some additional functionality. You can install &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude&lt;/code&gt; by running &lt;code class=&quot;highlighter-rouge&quot;&gt;apt install aptitude&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Language-specific package managers&lt;/strong&gt; manage one programming language’s libraries and are operating system independent.
+  RubyGems is a package manager for the Ruby programming language. It manages installation, dependencies, and versioning of Ruby packages, called gems. &lt;a href=&quot;http://guides.rubygems.org/what-is-a-gem/&quot;&gt;Ruby gems&lt;/a&gt; include code, documentation, and a gemspec file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;search&quot;&gt;Search&lt;/h3&gt;
+&lt;p&gt;When I needed to install Ruby to run a script on my VM, I used &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude&lt;/code&gt; to search for a Ruby package.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ aptitude search ruby
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;My search returned a long list of .deb packages containing the word ‘ruby’. Where did this list come from? A file called &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/apt/sources.list&lt;/code&gt; shows the source endpoint for both &lt;code class=&quot;highlighter-rouge&quot;&gt;deb&lt;/code&gt; packages, which are binary files, and &lt;code class=&quot;highlighter-rouge&quot;&gt;deb-src&lt;/code&gt; packages, which are source files.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-small&quot;&gt;deb http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
+deb-src http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;My VM is a DigitalOcean Droplet, so the source url is an Ubuntu mirror hosted by DigitalOcean. A mirror is just a duplicate of a canonical package archive. Ubuntu keeps &lt;a href=&quot;https://launchpad.net/ubuntu/+archivemirrors&quot;&gt;a list of registered mirrors&lt;/a&gt; that are open to use by the general public. DigitalOcean’s mirror isn’t on that list because it is only intended to be used by DigitalOcean Droplets. Anyone can &lt;a href=&quot;https://help.ubuntu.com/community/Rsyncmirror&quot;&gt;create a mirror&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;/h3&gt;
+&lt;p&gt;In order to install the latest version of Ruby (2.3) I could run either of two commands:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ aptitude install ruby2.3
+$ aptitude install ruby
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;I chose to run the second because it installs the default version of Ruby, which is currently 2.3, but could change in the future. Upon running the install command I received this prompt:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-small&quot;&gt;root@ubuntu:~# aptitude install ruby
+The following NEW packages will be installed:
+  fonts-lato{a} javascript-common{a} libjs-jquery{a} libruby2.3{a}
+  rake{a} ruby ruby-did-you-mean{a} ruby-minitest{a}
+  ruby-net-telnet{a} ruby-power-assert{a} ruby-test-unit{a}
+  ruby2.3{a} rubygems-integration{a} unzip{a} zip{a}
+0 packages upgraded, 15 newly installed, 0 to remove and 22 not upgraded. Need to get 0 B/6,359 kB of archives. After unpacking 28.6 MB will be used.
+Do you want to continue? [Y/n/?]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Those are Ruby’s dependencies! Some of them seem like nonsense. I’m not sure why Ruby needs Lato, but others are logical, like the Ruby library and Rake, which is Ruby’s build automation tool (think Ruby Make).&lt;/p&gt;
+
+&lt;h3 id=&quot;organization&quot;&gt;Organization&lt;/h3&gt;
+&lt;p&gt;Once the install completes, the Ruby binary file is located in &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/bin&lt;/code&gt;. If you run &lt;code class=&quot;highlighter-rouge&quot;&gt;echo $PATH&lt;/code&gt; you can see the search path that is traversed when you run a program from the command line. Mine is the default for Ubuntu:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/bin&lt;/code&gt; contains binary programs that are necessary for basic functionality, like booting and repairing the system.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/bin&lt;/code&gt; is where distribution managed packages are installed – so anything you would install with &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude install&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/bin&lt;/code&gt; is where user-installed packages go, including packages installed by language-specific package managers.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sbin&lt;/code&gt; is where packages that need to be run as root are installed. Now my VM can run &lt;code class=&quot;highlighter-rouge&quot;&gt;ruby my_script.rb&lt;/code&gt; because it will find an executable Ruby program in &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/bin&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;gems&quot;&gt;Gems&lt;/h3&gt;
+&lt;p&gt;Actually, my VM couldn’t run my script just yet because I also needed a Ruby gem called &lt;code class=&quot;highlighter-rouge&quot;&gt;dotenv&lt;/code&gt; to load environment variables into my script. I found it using &lt;code class=&quot;highlighter-rouge&quot;&gt;gem search&lt;/code&gt; and installed it with &lt;code class=&quot;highlighter-rouge&quot;&gt;gem install dotenv&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Where do gems come from and where are they installed? You can find out by running &lt;code class=&quot;highlighter-rouge&quot;&gt;gem environment&lt;/code&gt;. Among other environment variables, you’ll see:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- INSTALLATION DIRECTORY: /var/lib/gems/2.3.0
+- EXECUTABLE DIRECTORY: /usr/local/bin
+- REMOTE SOURCES:
+   - https://rubygems.org/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The gem source address is &lt;code class=&quot;highlighter-rouge&quot;&gt;https://rubygems.org/&lt;/code&gt;, but you can add other sources, or &lt;a href=&quot;https://github.com/rubygems/rubygems-mirror&quot;&gt;create a local mirror&lt;/a&gt;. RubyGems is a language-specific package manager, so executable files are installed at &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/bin&lt;/code&gt;. After installing the dotenv gem, I have a &lt;code class=&quot;highlighter-rouge&quot;&gt;dotenv&lt;/code&gt; executable file in &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/bin&lt;/code&gt;. The gem itself is installed in &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/lib/gems/[ruby-version-number]&lt;/code&gt;. Now I can use the gem by requiring it in my script or I can run the executable at the command-line.&lt;/p&gt;
+
+&lt;h3 id=&quot;help&quot;&gt;Help&lt;/h3&gt;
+&lt;p&gt;Most package managers have pretty similar command-line interfaces, including &lt;code class=&quot;highlighter-rouge&quot;&gt;search&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;install&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;uninstall&lt;/code&gt;. However, some have slightly different commands and functionality, so it always &lt;em&gt;helps&lt;/em&gt; to run &lt;code class=&quot;highlighter-rouge&quot;&gt;-h&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;-help&lt;/code&gt; to get familiar with your package manager’s UI.&lt;/p&gt;
+
+&lt;h3 id=&quot;super-cow-powers&quot;&gt;Super Cow Powers&lt;/h3&gt;
+&lt;p&gt;When you run &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude -h&lt;/code&gt; the output will also tell you, following a list of valid usage, actions, and options, that aptitude “does not have Super Cow Powers”.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-small&quot;&gt;Actions:
+install   - Install/upgrade packages.
+remove    - Remove packages.
+...
+Options:
+ -v         Display extra information. (may be supplied multiple times).
+...
+This aptitude does not have Super Cow Powers.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt; &lt;em&gt;does&lt;/em&gt; have super cow powers:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@ubuntu:~# apt moo
+                 (__)
+                 (oo)
+           /------\/
+          / |    ||
+         *  /\---/\
+            ~~   ~~
+...&quot;Have you mooed today?&quot;...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Although &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude&lt;/code&gt; doesn’t have super cow powers, if you persist you might be rewarded with a drawing.&lt;/p&gt;
+</description>
+				<pubDate>Thu, 22 Jun 2017 00:00:00 -0400</pubDate>
+				<link>https://nicoleorchard.com/blog/package-managers</link>
+				<guid isPermaLink="true">https://nicoleorchard.com/blog/package-managers</guid>
+			</item>
+		
+			<item>
 				<title>What Should I Work On?</title>
 				<description>&lt;p&gt;Last year I was a web designer with a time-consuming programming pastime. In August I left my job to travel and study full-time. This post is about what I learned from nine months of self-study and the resources I used.&lt;/p&gt;
 
