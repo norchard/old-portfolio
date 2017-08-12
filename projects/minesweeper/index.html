@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Minesweeper</title>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="./assets/style.css"> -->
+    <style>
+      body {
+        margin-top: 100px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.2em;
+        font-weight: 500;
+        color: darkslateblue;
+      }
+
+      .button {
+        font-size: 14px;
+        background-color: tomato;
+        color: white;
+        font-weight: 400;
+        border: solid 2px goldenrod;
+        padding: 5px 10px 7px 10px;
+        /*border-radius: 15px;*/
+        margin: 5px;
+      }
+
+      .button:active {
+        background-color: orangered;
+      }
+
+      .button:focus {
+        outline: none;
+      }
+
+      .button:hover {
+        outline: solid orangered 2px;
+        outline-offset: -4px;
+      }
+
+      .cell {
+        background-color: tomato;
+        border: solid 1px goldenrod;
+        height: 23px;
+        width: 30px;
+        float: left;
+        line-height: 18px;
+        padding-top: 7px;
+        transition: ease;
+        cursor: default;
+      }
+
+      .cell.guessable:active {
+        background-color: orangered;
+      }
+
+      .cell.guessable:hover {
+        outline: solid orangered 2px;
+        outline-offset: -3px;
+      }
+
+      .guessed {
+        background-color: lightsalmon;
+      }
+
+      .board {
+        margin: 40px auto;
+        border: solid 1px goldenrod;
+      }
+
+      .none {
+        display: none;
+      }
+
+      .small {
+        height: calc(6 * 32px);
+        width: calc(6 * 32px);
+      }
+
+      .medium {
+        height: calc(9 * 32px);
+        width: calc(9 * 32px);
+      }
+
+      .large {
+        height: calc(12 * 32px);
+        width: calc(12 * 32px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+
+    </div>
+  <script type="text/javascript" src="index_bundle.js"></script></body>
+</html>
