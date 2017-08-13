@@ -7,6 +7,253 @@
 		<atom:link href="https://nicoleorchard.com/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>An Intro to Compilers</title>
+				<description>&lt;p&gt;&lt;strong&gt;tl;dr:&lt;/strong&gt; &lt;a href=&quot;https://twitter.com/norchard/status/864246049266958336&quot;&gt;Learning new meanings for front-end and back-end&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A compiler is just a program that translates other programs. Traditional compilers translate source code into executable machine code that your computer understands. (Some compilers translate source code into another programming language. These compilers are called source-to-source translators or transpilers.) &lt;a href=&quot;http://llvm.org/&quot;&gt;LLVM&lt;/a&gt; is a widely used compiler project, consisting of many modular compiler tools.&lt;/p&gt;
+
+&lt;p&gt;Traditional compiler design comprises three parts:
+&lt;img src=&quot;/img/blog/compilers/compiler1.jpg&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;The Frontend&lt;/strong&gt; translates source code into an intermediate representation (IR)*. &lt;a href=&quot;http://clang.llvm.org/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;clang&lt;/code&gt;&lt;/a&gt; is LLVM’s frontend for the C family of languages.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;The Optimizer&lt;/strong&gt; analyzes the IR and translates it into a more efficient form. &lt;a href=&quot;http://llvm.org/docs/CommandGuide/opt.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt;&lt;/a&gt; is the LLVM optimizer tool.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;The Backend&lt;/strong&gt; generates machine code by mapping the IR to the target hardware instruction set. &lt;a href=&quot;http://llvm.org/docs/CommandGuide/llc.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;llc&lt;/code&gt;&lt;/a&gt; is the LLVM backend tool.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;* &lt;strong&gt;LLVM IR&lt;/strong&gt; is a low-level language that is similar to assembly. However, it abstracts away hardware-specific information.&lt;/p&gt;
+
+&lt;h2 id=&quot;hello-compiler-&quot;&gt;Hello, Compiler 👋&lt;/h2&gt;
+&lt;p&gt;Below is a simple C program that prints “Hello, Compiler!” to stdout. The C syntax is human-readable, but my computer wouldn’t know what to do with it. I’m going to walk through the three compilation phases to make this program machine-executable.
+&lt;!-- (You can imagine the program waving to the compiler as it moves through the compilation process.) --&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// compile_me.c
+// Wave to the compiler. The world can wait.
+&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, Compiler!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;the-frontend&quot;&gt;The Frontend&lt;/h3&gt;
+&lt;p&gt;As I mentioned above, &lt;code class=&quot;highlighter-rouge&quot;&gt;clang&lt;/code&gt; is LLVM’s frontend for the C family of languages. Clang consists of a C preprocessor, lexer, parser, semantic analyzer, and IR generator.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The C Preprocessor&lt;/strong&gt; modifies the source code before beginning the translation to IR. The preprocessor handles including external files, like &lt;code class=&quot;highlighter-rouge&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/code&gt; above. It will replace that line with the entire contents of the &lt;code class=&quot;highlighter-rouge&quot;&gt;stdio.h&lt;/code&gt; C standard library file, which will include the declaration of the &lt;code class=&quot;highlighter-rouge&quot;&gt;printf&lt;/code&gt; function.&lt;/p&gt;
+
+    &lt;p&gt;&lt;em&gt;See the output of the preprocessor step by running:&lt;/em&gt;&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;clang -E compile_me.c -o preprocessed.i
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The Lexer&lt;/strong&gt; (or scanner or tokenizer) converts a string of characters to a string of words. Each word, or token, is assigned to one of five syntactic categories: punctuation, keyword, identifier, literal, or comment.&lt;/p&gt;
+
+    &lt;p&gt;&lt;em&gt;Tolkenization of compile_me.c&lt;/em&gt;
+&lt;img src=&quot;/img/blog/compilers/lexer.jpg&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The Parser&lt;/strong&gt; determines whether or not the stream of words consists of valid sentences in the source language. After analyzing the grammar of the token stream, it outputs an abstract syntax tree (AST). Nodes in a Clang AST represent declarations, statements, and types.&lt;/p&gt;
+
+    &lt;p&gt;&lt;em&gt;The AST of compile_me.c&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/compilers/tree.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The Semantic Analyzer&lt;/strong&gt; traverses the AST, determining if code sentences have valid meaning. This phase checks for type errors. If the main function in compile_me.c returned &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;zero&quot;&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;, the semantic analyzer would throw an error because &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;zero&quot;&lt;/code&gt; is not of type &lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The IR Generator&lt;/strong&gt; translates the AST to IR.&lt;/p&gt;
+
+    &lt;p&gt;&lt;em&gt;Run the clang frontend on compile_me.c to generate LLVM IR:&lt;/em&gt;&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;clang -S -emit-llvm -o llvm_ir.ll compile_me.c
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;em&gt;The main function in llvm_ir.ll&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;; llvm_ir.ll&lt;/span&gt;
+
+&lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;Hello, Compiler!\0A\00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;alloca&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- memory allocated on the stack&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;getelementptr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;inbounds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]*&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;the-optimizer&quot;&gt;The Optimizer&lt;/h3&gt;
+&lt;p&gt;The job of the optimizer is to improve code efficiency based on it’s understanding of the program’s runtime behavior. The optimizer takes IR as input and produces improved IR as output. LLVM’s optimizer tool, &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt;, will optimize for processor speed with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-O2&lt;/code&gt; (capital o, two) and for size with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-Os&lt;/code&gt; (capital o, s).&lt;/p&gt;
+
+&lt;p&gt;Take a look at the difference between the LLVM IR code our frontend generated above and the result of running:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opt -O2 llvm_ir.ll -o optimized.ll
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;The main function in optimized.ll&lt;/em&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;; optimized.ll&lt;/span&gt;
+
+&lt;span class=&quot;vg&quot;&gt;@str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;Hello, Compiler!\00&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%puts&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;getelementptr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;inbounds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]*&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i64&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i64&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nocapture&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;readonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the optimized version, main doesn’t allocate memory on the stack, since it doesn’t use any memory. The optimized code also calls &lt;code class=&quot;highlighter-rouge&quot;&gt;puts&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;printf&lt;/code&gt; because none of &lt;code class=&quot;highlighter-rouge&quot;&gt;printf&lt;/code&gt;’s formatting functionality was used.&lt;/p&gt;
+
+&lt;p&gt;Of course, the optimizer does more than just know when to use &lt;code class=&quot;highlighter-rouge&quot;&gt;puts&lt;/code&gt; in lieu of &lt;code class=&quot;highlighter-rouge&quot;&gt;printf&lt;/code&gt;. The optimizer also unrolls loops and inlines the results of simple calculations. Consider the program below, which adds two integers and prints the result.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// add.c
+&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%i + %i = %i&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;Here is the unoptimized LLVM IR:&lt;/em&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;%i + %i = %i\0A\00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;alloca&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- allocate stack space for var a&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;alloca&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- allocate stack space for var b&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;alloca&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- allocate stack space for var c&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- store 5 at memory location %1&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- store 10 at memory location %2&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- load the value at memory address %1 into register %4&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%5&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- load the value at memory address %2 into register %5&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%6&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nsw&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%5&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- add the values in registers %4 and %5. put the result in register %6&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- put the value of register %6 into memory address %3&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%7&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- load the value at memory address %1 into register %7&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- load the value at memory address %2 into register %8&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%9&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- load the value at memory address %3 into register %9&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%10&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;getelementptr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;inbounds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]*&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;%9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;Here is the optimized LLVM IR:&lt;/em&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;%i + %i = %i\0A\00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;getelementptr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;inbounds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]*&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i64&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i64&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nocapture&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;readonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Our optimized main function is essentially lines 17 and 18 of the unoptimized version, with the variable values inlined. &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt; calculated the addition because all of the variables were constant. Pretty cool, huh?&lt;/p&gt;
+
+&lt;h3 id=&quot;the-backend&quot;&gt;The Backend&lt;/h3&gt;
+&lt;p&gt;LLVM’s backend tool is &lt;code class=&quot;highlighter-rouge&quot;&gt;llc&lt;/code&gt;. It generates machine code from LLVM IR input in three phases:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Instruction selection&lt;/strong&gt; is the mapping of IR instructions to the instruction-set of the target machine. This step uses an infinite namespace of virtual registers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Register allocation&lt;/strong&gt; is the mapping of virtual registers to actual registers on your target architecture. My CPU has an x86 architecture, which is limited to 16 registers. However, the compiler will use as few registers as possible.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Instruction scheduling&lt;/strong&gt; is the reordering of operations to reflect the target machine’s performance constraints.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;Running this command will produce some machine code!&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;llc -o compiled-assembly.s optimized.ll
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	leaq	L_str(%rip), %rdi
+	callq	_puts
+	xorl	%eax, %eax
+	popq	%rbp
+	retq
+L_str:
+	.asciz	&quot;Hello, Compiler!&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This program is x86 assembly language, which is the human readable syntax for the language my computer speaks. Someone finally understands me 🙌&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;Resources&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/Engineering-Compiler-Second-Keith-Cooper/dp/012088478X&quot;&gt;Engineering a compiler&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/Getting-Started-LLVM-Core-Libraries/dp/1782166920&quot;&gt;Getting Started with LLVM Core Libraries&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+				<pubDate>Sun, 13 Aug 2017 00:00:00 -0400</pubDate>
+				<link>https://nicoleorchard.com/blog/compilers</link>
+				<guid isPermaLink="true">https://nicoleorchard.com/blog/compilers</guid>
+			</item>
+		
+			<item>
 				<title>Package Managers</title>
 				<description>&lt;p&gt;If you want to draw for the first time, someone might hand you a piece of paper and a pencil. They won’t spend time discussing where the paper and pencil came from. Instead, they’ll tell you about line, form, and negative space. If you want to write a Python program for the first time, someone might run the following commands on your machine:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ apt install python3
