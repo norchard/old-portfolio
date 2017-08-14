@@ -98,7 +98,7 @@
   <li>
     <p><strong>The Lexer</strong> (or scanner or tokenizer) converts a string of characters to a string of words. Each word, or token, is assigned to one of five syntactic categories: punctuation, keyword, identifier, literal, or comment.</p>
 
-    <p><em>Tolkenization of compile_me.c</em>
+    <p><em>Tokenization of compile_me.c</em>
 <img src="/img/blog/compilers/lexer.jpg" /></p>
   </li>
   <li>
@@ -151,7 +151,7 @@
 </span></pre></td></tr></tbody></table></code></pre></figure>
 
 <h3 id="the-optimizer">The Optimizer</h3>
-<p>The job of the optimizer is to improve code efficiency based on it’s understanding of the program’s runtime behavior. The optimizer takes IR as input and produces improved IR as output. LLVM’s optimizer tool, <code class="highlighter-rouge">opt</code>, will optimize for processor speed with the flag <code class="highlighter-rouge">-O2</code> (capital o, two) and for size with the flag <code class="highlighter-rouge">-Os</code> (capital o, s).</p>
+<p>The job of the optimizer is to improve code efficiency based on its understanding of the program’s runtime behavior. The optimizer takes IR as input and produces improved IR as output. LLVM’s optimizer tool, <code class="highlighter-rouge">opt</code>, will optimize for processor speed with the flag <code class="highlighter-rouge">-O2</code> (capital o, two) and for size with the flag <code class="highlighter-rouge">-Os</code> (capital o, s).</p>
 
 <p>Take a look at the difference between the LLVM IR code our frontend generated above and the result of running:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>opt -O2 -S llvm_ir.ll -o optimized.ll

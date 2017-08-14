@@ -50,7 +50,7 @@
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;The Lexer&lt;/strong&gt; (or scanner or tokenizer) converts a string of characters to a string of words. Each word, or token, is assigned to one of five syntactic categories: punctuation, keyword, identifier, literal, or comment.&lt;/p&gt;
 
-    &lt;p&gt;&lt;em&gt;Tolkenization of compile_me.c&lt;/em&gt;
+    &lt;p&gt;&lt;em&gt;Tokenization of compile_me.c&lt;/em&gt;
 &lt;img src=&quot;/img/blog/compilers/lexer.jpg&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
@@ -103,7 +103,7 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;the-optimizer&quot;&gt;The Optimizer&lt;/h3&gt;
-&lt;p&gt;The job of the optimizer is to improve code efficiency based on it’s understanding of the program’s runtime behavior. The optimizer takes IR as input and produces improved IR as output. LLVM’s optimizer tool, &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt;, will optimize for processor speed with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-O2&lt;/code&gt; (capital o, two) and for size with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-Os&lt;/code&gt; (capital o, s).&lt;/p&gt;
+&lt;p&gt;The job of the optimizer is to improve code efficiency based on its understanding of the program’s runtime behavior. The optimizer takes IR as input and produces improved IR as output. LLVM’s optimizer tool, &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt;, will optimize for processor speed with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-O2&lt;/code&gt; (capital o, two) and for size with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-Os&lt;/code&gt; (capital o, s).&lt;/p&gt;
 
 &lt;p&gt;Take a look at the difference between the LLVM IR code our frontend generated above and the result of running:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opt -O2 -S llvm_ir.ll -o optimized.ll
