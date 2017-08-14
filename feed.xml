@@ -106,7 +106,7 @@
 &lt;p&gt;The job of the optimizer is to improve code efficiency based on it’s understanding of the program’s runtime behavior. The optimizer takes IR as input and produces improved IR as output. LLVM’s optimizer tool, &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt;, will optimize for processor speed with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-O2&lt;/code&gt; (capital o, two) and for size with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-Os&lt;/code&gt; (capital o, s).&lt;/p&gt;
 
 &lt;p&gt;Take a look at the difference between the LLVM IR code our frontend generated above and the result of running:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opt -O2 llvm_ir.ll -o optimized.ll
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opt -O2 -S llvm_ir.ll -o optimized.ll
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;em&gt;The main function in optimized.ll&lt;/em&gt;&lt;/p&gt;
@@ -395,7 +395,7 @@ This aptitude does not have Super Cow Powers.
     &lt;p&gt;Pick one language and learn it well. This could be Ruby, Python, Javascript. Some languages lend themselves better to particular applications because of their communities, but all of them use similar logic. Last year I knew how to write Javascript from mimicking tutorials, but I didn’t really understand how it worked. A lot of beginners echo this sentiment. Tutorials feel productive because you end up with a finished product, but they won’t teach you how to program. Find a introductory book for your language and read it cover to cover. Run example programs on your machine. (The first language I learned well was C. I really enjoyed learning C because the language taught me about memory management. If you’re not interested in low level topics, pick Ruby or Python.)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Write as much code as you can and don’t stress over finding the perfect project. You can find exercises on sites like &lt;a href=&quot;www.hackerrank.com&quot;&gt;HackerRank&lt;/a&gt; or &lt;a href=&quot;leetcode.com&quot;&gt;Leetcode&lt;/a&gt;. For starter projects implement games like tic-tac-toe, rock-paper-scissors, or connect four. Online courses are good for having access to problem sets. (Video lectures also serve as a nice break from reading, but you should still read a book!)&lt;/p&gt;
+    &lt;p&gt;Write as much code as you can and don’t stress over finding the perfect project. You can find exercises on sites like &lt;a href=&quot;https://www.hackerrank.com/&quot;&gt;HackerRank&lt;/a&gt; or &lt;a href=&quot;https://leetcode.com/&quot;&gt;Leetcode&lt;/a&gt;. For starter projects implement games like tic-tac-toe, rock-paper-scissors, or connect four. Online courses are good for having access to problem sets. (Video lectures also serve as a nice break from reading, but you should still read a book!)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Forget frameworks. (React is a framework!) I tried to learn Ruby on Rails before having a strong command of Ruby. It was overwhelming and distracting. Instead, write small programs from scratch. For web applications, use a microframework like Sinatra for Ruby or Flask for Python.&lt;/p&gt;
