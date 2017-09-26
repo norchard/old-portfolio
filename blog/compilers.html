@@ -254,7 +254,7 @@
 <span class="k">declare</span> <span class="kt">i32</span> <span class="vg">@printf</span><span class="p">(</span><span class="kt">i8</span><span class="p">*</span> <span class="k">nocapture</span> <span class="k">readonly</span><span class="p">,</span> <span class="p">...)</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></figure>
 
-<p>Our optimized main function is essentially lines 17 and 18 of the unoptimized version, with the variable values inlined. <code class="highlighter-rouge">opt</code> calculated the addition because all of the variables were constant. Pretty cool, huh?</p>
+<p>Our optimized main function is essentially lines 16 and 17 of the unoptimized version, with the variable values inlined. <code class="highlighter-rouge">opt</code> calculated the addition because all of the variables were constant. Pretty cool, huh?</p>
 
 <h3 id="the-backend">The Backend</h3>
 <p>LLVM’s backend tool is <code class="highlighter-rouge">llc</code>. It generates machine code from LLVM IR input in three phases:</p>

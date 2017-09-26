@@ -206,7 +206,7 @@
 &lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nocapture&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;readonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Our optimized main function is essentially lines 17 and 18 of the unoptimized version, with the variable values inlined. &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt; calculated the addition because all of the variables were constant. Pretty cool, huh?&lt;/p&gt;
+&lt;p&gt;Our optimized main function is essentially lines 16 and 17 of the unoptimized version, with the variable values inlined. &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt; calculated the addition because all of the variables were constant. Pretty cool, huh?&lt;/p&gt;
 
 &lt;h3 id=&quot;the-backend&quot;&gt;The Backend&lt;/h3&gt;
 &lt;p&gt;LLVM’s backend tool is &lt;code class=&quot;highlighter-rouge&quot;&gt;llc&lt;/code&gt;. It generates machine code from LLVM IR input in three phases:&lt;/p&gt;
