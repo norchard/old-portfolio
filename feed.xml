@@ -1,19 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Nicole Orchard</title>
-		<description>Nicole Orchard</description>
-		<link>https://nicoleorchard.com</link>
-		<atom:link href="https://nicoleorchard.com/feed.xml" rel="self" type="application/rss+xml" />
-		
-			<item>
-				<title>An Intro to Compilers</title>
-				<description>&lt;p&gt;&lt;strong&gt;tl;dr:&lt;/strong&gt; &lt;a href=&quot;https://twitter.com/norchard/status/864246049266958336&quot;&gt;Learning new meanings for front-end and back-end&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="nicoleorchard.com/feed.xml" rel="self" type="application/atom+xml" /><link href="nicoleorchard.com/" rel="alternate" type="text/html" /><updated>2019-01-10T07:18:47-05:00</updated><id>nicoleorchard.com/</id><title type="html">Nicole Orchard</title><subtitle>Nicole Orchard</subtitle><entry><title type="html">An Intro to Compilers</title><link href="nicoleorchard.com/blog/compilers" rel="alternate" type="text/html" title="An Intro to Compilers" /><published>2017-08-13T00:00:00-04:00</published><updated>2017-08-13T00:00:00-04:00</updated><id>nicoleorchard.com/blog/compilers</id><content type="html" xml:base="nicoleorchard.com/blog/compilers">&lt;p&gt;&lt;strong&gt;tl;dr:&lt;/strong&gt; &lt;a href=&quot;https://twitter.com/norchard/status/864246049266958336&quot;&gt;Learning new meanings for front-end and back-end&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;A compiler is just a program that translates other programs. Traditional compilers translate source code into executable machine code that your computer understands. (Some compilers translate source code into another programming language. These compilers are called source-to-source translators or transpilers.) &lt;a href=&quot;http://llvm.org/&quot;&gt;LLVM&lt;/a&gt; is a widely used compiler project, consisting of many modular compiler tools.&lt;/p&gt;
 
 &lt;p&gt;Traditional compiler design comprises three parts:
-&lt;img src=&quot;/img/blog/compilers/compiler1.jpg&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/img/blog/compilers/compiler1.jpg&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;The Frontend&lt;/strong&gt; translates source code into an intermediate representation (IR)*. &lt;a href=&quot;http://clang.llvm.org/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;clang&lt;/code&gt;&lt;/a&gt; is LLVM’s frontend for the C family of languages.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;The Optimizer&lt;/strong&gt; analyzes the IR and translates it into a more efficient form. &lt;a href=&quot;http://llvm.org/docs/CommandGuide/opt.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt;&lt;/a&gt; is the LLVM optimizer tool.&lt;/li&gt;
@@ -44,14 +34,13 @@
 
     &lt;p&gt;&lt;em&gt;See the output of the preprocessor step by running:&lt;/em&gt;&lt;/p&gt;
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;clang -E compile_me.c -o preprocessed.i
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;The Lexer&lt;/strong&gt; (or scanner or tokenizer) converts a string of characters to a string of words. Each word, or token, is assigned to one of five syntactic categories: punctuation, keyword, identifier, literal, or comment.&lt;/p&gt;
 
     &lt;p&gt;&lt;em&gt;Tokenization of compile_me.c&lt;/em&gt;
-&lt;img src=&quot;/img/blog/compilers/lexer.jpg&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/img/blog/compilers/lexer.jpg&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;The Parser&lt;/strong&gt; determines whether or not the stream of words consists of valid sentences in the source language. After analyzing the grammar of the token stream, it outputs an abstract syntax tree (AST). Nodes in a Clang AST represent declarations, statements, and types.&lt;/p&gt;
@@ -60,7 +49,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/compilers/tree.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/compilers/tree.jpg&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -71,13 +60,12 @@
 
     &lt;p&gt;&lt;em&gt;Run the clang frontend on compile_me.c to generate LLVM IR:&lt;/em&gt;&lt;/p&gt;
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;clang -S -emit-llvm -o llvm_ir.ll compile_me.c
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;    &lt;/div&gt;
     &lt;p&gt;&lt;em&gt;The main function in llvm_ir.ll&lt;/em&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
 4
@@ -88,7 +76,8 @@
 9
 10
 11
-12&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;; llvm_ir.ll&lt;/span&gt;
+12
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;; llvm_ir.ll&lt;/span&gt;
 
 &lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;Hello, Compiler!\0A\00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
 
@@ -99,19 +88,17 @@
   &lt;span class=&quot;k&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h3 id=&quot;the-optimizer&quot;&gt;The Optimizer&lt;/h3&gt;
 &lt;p&gt;The job of the optimizer is to improve code efficiency based on its understanding of the program’s runtime behavior. The optimizer takes IR as input and produces improved IR as output. LLVM’s optimizer tool, &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt;, will optimize for processor speed with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-O2&lt;/code&gt; (capital o, two) and for size with the flag &lt;code class=&quot;highlighter-rouge&quot;&gt;-Os&lt;/code&gt; (capital o, s).&lt;/p&gt;
 
 &lt;p&gt;Take a look at the difference between the LLVM IR code our frontend generated above and the result of running:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opt -O2 -S llvm_ir.ll -o optimized.ll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;em&gt;The main function in optimized.ll&lt;/em&gt;&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
 4
@@ -120,7 +107,8 @@
 7
 8
 9
-10&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;; optimized.ll&lt;/span&gt;
+10
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;; optimized.ll&lt;/span&gt;
 
 &lt;span class=&quot;vg&quot;&gt;@str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;Hello, Compiler!\00&quot;&lt;/span&gt;
 
@@ -129,8 +117,7 @@
   &lt;span class=&quot;k&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nocapture&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;readonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nocapture&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;readonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;In the optimized version, main doesn’t allocate memory on the stack, since it doesn’t use any memory. The optimized code also calls &lt;code class=&quot;highlighter-rouge&quot;&gt;puts&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;printf&lt;/code&gt; because none of &lt;code class=&quot;highlighter-rouge&quot;&gt;printf&lt;/code&gt;’s formatting functionality was used.&lt;/p&gt;
 
@@ -146,7 +133,7 @@
 
 &lt;p&gt;&lt;em&gt;Here is the unoptimized LLVM IR:&lt;/em&gt;&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
 4
@@ -165,7 +152,8 @@
 17
 18
 19
-20&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;%i + %i = %i\0A\00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+20
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;%i + %i = %i\0A\00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;alloca&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; &amp;lt;- allocate stack space for var a&lt;/span&gt;
@@ -184,27 +172,26 @@
   &lt;span class=&quot;k&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;&lt;em&gt;Here is the optimized LLVM IR:&lt;/em&gt;&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-llvm&quot; data-lang=&quot;llvm&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
 4
 5
 6
 7
-8&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;%i + %i = %i\0A\00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+8
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unnamed_addr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;c&quot;%i + %i = %i\0A\00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;align&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nv&quot;&gt;%1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;getelementptr&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;inbounds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]*&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@.str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i64&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i64&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nocapture&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;readonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;k&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;@printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;i8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;nocapture&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;readonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Our optimized main function is essentially lines 16 and 17 of the unoptimized version, with the variable values inlined. &lt;code class=&quot;highlighter-rouge&quot;&gt;opt&lt;/code&gt; calculated the addition because all of the variables were constant. Pretty cool, huh?&lt;/p&gt;
 
@@ -225,8 +212,7 @@
 
 &lt;p&gt;&lt;em&gt;Running this command will produce some machine code!&lt;/em&gt;&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;llc -o compiled-assembly.s optimized.ll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_main:
 	pushq	%rbp
 	movq	%rsp, %rbp
@@ -237,8 +223,7 @@
 	retq
 L_str:
 	.asciz	&quot;Hello, Compiler!&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This program is x86 assembly language, which is the human readable syntax for the language my computer speaks. Someone finally understands me 🙌&lt;/p&gt;
 
 &lt;hr /&gt;
@@ -246,20 +231,10 @@ L_str:
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/Engineering-Compiler-Second-Keith-Cooper/dp/012088478X&quot;&gt;Engineering a compiler&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/Getting-Started-LLVM-Core-Libraries/dp/1782166920&quot;&gt;Getting Started with LLVM Core Libraries&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-				<pubDate>Sun, 13 Aug 2017 00:00:00 -0400</pubDate>
-				<link>https://nicoleorchard.com/blog/compilers</link>
-				<guid isPermaLink="true">https://nicoleorchard.com/blog/compilers</guid>
-			</item>
-		
-			<item>
-				<title>Package Managers</title>
-				<description>&lt;p&gt;If you want to draw for the first time, someone might hand you a piece of paper and a pencil. They won’t spend time discussing where the paper and pencil came from. Instead, they’ll tell you about line, form, and negative space. If you want to write a Python program for the first time, someone might run the following commands on your machine:&lt;/p&gt;
+&lt;/ol&gt;</content><author><name></name></author><summary type="html">tl;dr: Learning new meanings for front-end and back-end.</summary></entry><entry><title type="html">Package Managers</title><link href="nicoleorchard.com/blog/package-managers" rel="alternate" type="text/html" title="Package Managers" /><published>2017-06-22T00:00:00-04:00</published><updated>2017-06-22T00:00:00-04:00</updated><id>nicoleorchard.com/blog/package-managers</id><content type="html" xml:base="nicoleorchard.com/blog/package-managers">&lt;p&gt;If you want to draw for the first time, someone might hand you a piece of paper and a pencil. They won’t spend time discussing where the paper and pencil came from. Instead, they’ll tell you about line, form, and negative space. If you want to write a Python program for the first time, someone might run the following commands on your machine:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ apt install python3
 $ pip3 install ipython
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then they would open iPython and show you some basic Python syntax.&lt;/p&gt;
 
 &lt;p&gt;Package management is often glossed over because programming is the writing of programs, not the installing of programs. However, programming is also the organization of programs… and it actually &lt;em&gt;is&lt;/em&gt; the installing of programs, sometimes. After spending over a year installing and uninstalling (but mostly installing) packages using brew, gem, and npm on my mac, I finally learned how package managers work on a virtual machine running Ubuntu. Understanding how package management works was a pretty satisfying ‘aha!’ moment for me, so I hope it is for you too.&lt;/p&gt;
@@ -281,8 +256,7 @@ $ pip3 install ipython
 &lt;h3 id=&quot;search&quot;&gt;Search&lt;/h3&gt;
 &lt;p&gt;When I needed to install Ruby to run a script on my VM, I used &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude&lt;/code&gt; to search for a Ruby package.&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ aptitude search ruby
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;My search returned a long list of .deb packages containing the word ‘ruby’. Where did this list come from? A file called &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/apt/sources.list&lt;/code&gt; shows the source endpoint for both &lt;code class=&quot;highlighter-rouge&quot;&gt;deb&lt;/code&gt; packages, which are binary files, and &lt;code class=&quot;highlighter-rouge&quot;&gt;deb-src&lt;/code&gt; packages, which are source files.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-small&quot;&gt;deb http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
 deb-src http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
@@ -293,8 +267,7 @@ deb-src http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
 &lt;p&gt;In order to install the latest version of Ruby (2.3) I could run either of two commands:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ aptitude install ruby2.3
 $ aptitude install ruby
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I chose to run the second because it installs the default version of Ruby, which is currently 2.3, but could change in the future. Upon running the install command I received this prompt:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-small&quot;&gt;root@ubuntu:~# aptitude install ruby
 The following NEW packages will be installed:
@@ -310,8 +283,7 @@ Do you want to continue? [Y/n/?]
 &lt;h3 id=&quot;organization&quot;&gt;Organization&lt;/h3&gt;
 &lt;p&gt;Once the install completes, the Ruby binary file is located in &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/bin&lt;/code&gt;. If you run &lt;code class=&quot;highlighter-rouge&quot;&gt;echo $PATH&lt;/code&gt; you can see the search path that is traversed when you run a program from the command line. Mine is the default for Ubuntu:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/bin&lt;/code&gt; contains binary programs that are necessary for basic functionality, like booting and repairing the system.&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/bin&lt;/code&gt; is where distribution managed packages are installed – so anything you would install with &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude install&lt;/code&gt;.&lt;/li&gt;
@@ -328,8 +300,7 @@ Do you want to continue? [Y/n/?]
 - EXECUTABLE DIRECTORY: /usr/local/bin
 - REMOTE SOURCES:
    - https://rubygems.org/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The gem source address is &lt;code class=&quot;highlighter-rouge&quot;&gt;https://rubygems.org/&lt;/code&gt;, but you can add other sources, or &lt;a href=&quot;https://github.com/rubygems/rubygems-mirror&quot;&gt;create a local mirror&lt;/a&gt;. RubyGems is a language-specific package manager, so executable files are installed at &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/bin&lt;/code&gt;. After installing the dotenv gem, I have a &lt;code class=&quot;highlighter-rouge&quot;&gt;dotenv&lt;/code&gt; executable file in &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/bin&lt;/code&gt;. The gem itself is installed in &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/lib/gems/[ruby-version-number]&lt;/code&gt;. Now I can use the gem by requiring it in my script or I can run the executable at the command-line.&lt;/p&gt;
 
 &lt;h3 id=&quot;help&quot;&gt;Help&lt;/h3&gt;
@@ -356,18 +327,8 @@ This aptitude does not have Super Cow Powers.
          *  /\---/\
             ~~   ~~
 ...&quot;Have you mooed today?&quot;...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;Although &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude&lt;/code&gt; doesn’t have super cow powers, if you persist you might be rewarded with a drawing.&lt;/p&gt;
-</description>
-				<pubDate>Thu, 22 Jun 2017 00:00:00 -0400</pubDate>
-				<link>https://nicoleorchard.com/blog/package-managers</link>
-				<guid isPermaLink="true">https://nicoleorchard.com/blog/package-managers</guid>
-			</item>
-		
-			<item>
-				<title>What Should I Work On?</title>
-				<description>&lt;p&gt;Last year I was a web designer with a time-consuming programming pastime. In August I left my job to travel and study full-time. This post is about what I learned from nine months of self-study and the resources I used.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Although &lt;code class=&quot;highlighter-rouge&quot;&gt;aptitude&lt;/code&gt; doesn’t have super cow powers, if you persist you might be rewarded with a drawing.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you want to draw for the first time, someone might hand you a piece of paper and a pencil. They won’t spend time discussing where the paper and pencil came from. Instead, they’ll tell you about line, form, and negative space. If you want to write a Python program for the first time, someone might run the following commands on your machine: $ apt install python3 $ pip3 install ipython Then they would open iPython and show you some basic Python syntax.</summary></entry><entry><title type="html">What Should I Work On?</title><link href="nicoleorchard.com/blog/what-should-i-work-on" rel="alternate" type="text/html" title="What Should I Work On?" /><published>2017-05-23T00:00:00-04:00</published><updated>2017-05-23T00:00:00-04:00</updated><id>nicoleorchard.com/blog/what-should-i-work-on</id><content type="html" xml:base="nicoleorchard.com/blog/what-should-i-work-on">&lt;p&gt;Last year I was a web designer with a time-consuming programming pastime. In August I left my job to travel and study full-time. This post is about what I learned from nine months of self-study and the resources I used.&lt;/p&gt;
 
 &lt;h3 id=&quot;bootcamps-might-not-be-for-you&quot;&gt;Bootcamps might not be for you&lt;/h3&gt;
 &lt;p&gt;Bootcamps are great for people with financial resources who want to dive into web development without previous technical experience. I opted out of doing a bootcamp for three reasons:&lt;/p&gt;
@@ -425,7 +386,7 @@ This aptitude does not have Super Cow Powers.
     &lt;p&gt;&lt;a href=&quot;http://pages.cs.wisc.edu/~remzi/OSTEP/&quot;&gt;The Comet Book&lt;/a&gt; is an awesome resource for learning about operating systems and a great technical reference. I skipped around in it while following along with lectures from Berkeley’s Introduction to Operating Systems. I recently came back to the Event Based Concurrency chapter while learning about the difference between Nginx and Apache servers. It is really well written.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://poignant.guide/&quot;&gt;Why’s Poignant Guide to Ruby&lt;/a&gt; is a whimsical illustrated overview of the Ruby language. I picked up some cool tricks for remembering syntax, like that an argument passed to a block slides down a waterslide into the block &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;|x|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;. It’s not a comprehensive introduction, but it’s a lot of fun to read.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://poignant.guide/&quot;&gt;Why’s Poignant Guide to Ruby&lt;/a&gt; is a whimsical illustrated overview of the Ruby language. I picked up some cool tricks for remembering syntax, like that an argument passed to a block slides down a waterslide into the block &lt;code class=&quot;highlighter-rouge&quot;&gt;{|x| x + 5}&lt;/code&gt;. It’s not a comprehensive introduction, but it’s a lot of fun to read.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;https://pragprog.com/book/ruby/programming-ruby&quot;&gt;The Pickaxe Book&lt;/a&gt; is a comprehensive introduction to Ruby.&lt;/p&gt;
@@ -438,13 +399,4 @@ This aptitude does not have Super Cow Powers.
 
 &lt;h3 id=&quot;computer-friends-are-the-best&quot;&gt;Computer friends are the best&lt;/h3&gt;
 &lt;p&gt;Computer friends are nice, quirky, and excellent resources. Talking through code is a great debugging strategy and it’s fun to find out you’ve been pronouncing &lt;code class=&quot;highlighter-rouge&quot;&gt;chmod&lt;/code&gt; weird. When I started learning I didn’t know many programmers, so I joined groups like &lt;a href=&quot;https://www.girldevelopit.com&quot;&gt;Girl Develop It&lt;/a&gt; and &lt;a href=&quot;https://www.womenwhocode.com/&quot;&gt;Women Who Code&lt;/a&gt;.&lt;br /&gt;
-If you’re excited about programming and want to make a lot more computer friends, consider applying to &lt;a href=&quot;https://www.recurse.com/&quot;&gt;the Recurse Center&lt;/a&gt;!&lt;/p&gt;
-
-</description>
-				<pubDate>Tue, 23 May 2017 00:00:00 -0400</pubDate>
-				<link>https://nicoleorchard.com/blog/what-should-i-work-on</link>
-				<guid isPermaLink="true">https://nicoleorchard.com/blog/what-should-i-work-on</guid>
-			</item>
-		
-	</channel>
-</rss>
+If you’re excited about programming and want to make a lot more computer friends, consider applying to &lt;a href=&quot;https://www.recurse.com/&quot;&gt;the Recurse Center&lt;/a&gt;!&lt;/p&gt;</content><author><name></name></author><summary type="html">Last year I was a web designer with a time-consuming programming pastime. In August I left my job to travel and study full-time. This post is about what I learned from nine months of self-study and the resources I used.</summary></entry></feed>

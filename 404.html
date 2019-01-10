@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+  <meta charset='utf-8'>
+  <title></title>
+  <link rel='stylesheet' href='/assets/main.css'>
+  <link rel='stylesheet' href='/assets/fa-all.min.css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet'>
+  <script>
+    function tattooClick(){
+      if (document.getElementsByClassName('dark').length > 0){
+        document.body.classList.remove('dark')
+        sessionStorage.setItem('mode', 'light')
+      } else {
+        document.body.className = 'dark'
+        sessionStorage.setItem('mode', 'dark')
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function(event) {
+      if (sessionStorage.getItem('mode') == 'dark'){
+        document.body.className = 'dark'
+      }
+    })
+
+    let index = 0
+
+    function occupationClick(event) {
+      const occupation = document.getElementById('occupation')
+      const intro = document.getElementById('intro')
+      const identities = [' software engineer',
+                        ' designer',
+                        ' friend',
+                        'n artist',
+                        ' daughter',
+                        ' photographer',
+                        ' good neighbor',
+                        ' ceramicist',
+                        ' human being',
+                        ' writer',
+                        ' painter',
+                        ' sister',
+                        ' cyclist',
+                        ' occational knitter']
+
+      if (!event.shiftKey) return;
+
+      // don't highlight on easter egg
+      if (index == 0) {
+        document.getSelection().removeAllRanges();
+        intro.classList.add('no-selection')
+      }
+
+      function reset() {
+        index = 0
+        occupation.textContent = identities[index]
+        intro.classList.remove('no-selection')
+      }
+
+      var timer = ++index
+      setTimeout(() => { if (timer == index) reset(); }, 500);
+      occupation.textContent = identities[index % identities.length]
+    }
+  </script>
+</head>
+
+  <body class='body'>
+    <div class='content'>
+      <header class='header'>
+    <a href='nicoleorchard.com'>Nicole Orchard</a>
+    <div id='tattoo' class='tattoo' onClick='tattooClick();'>
+      <div id='sun'></div>
+      <div id='moon'></div>
+      <div id='night'></div>
+    </div>
+</header>
+
+      <style type="text/css" media="screen">
+  .container {
+    margin: 10px auto;
+    max-width: 600px;
+    text-align: center;
+  }
+  h1 {
+    margin: 30px 0;
+    font-size: 4em;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+</style>
+
+<div class="container">
+  <h1>404</h1>
+
+  <p><strong>Page not found :(</strong></p>
+  <p>The requested page could not be found.</p>
+</div>
+
+    </div>
+    <footer class='footer'>
+  <a href='nicoleorchard.com' id='no'>NO</a>
+  <a href='https://github.com/norchard' target='_blank'><i class='fab fa-github'></i></a>
+  <a href='https://www.linkedin.com/in/nicole-orchard-6441b157' target='_blank'><i class='fab fa-linkedin'></i></a>
+</footer>
+
+  </body>
+</html>

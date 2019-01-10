@@ -1,66 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang='en'>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nicole Orchard</title>
-    <link href="/styles/main.css" rel="stylesheet">
-    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS feed">
-    <script src="https://use.typekit.net/qnt8nxq.js"></script>
-    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+  <meta charset='utf-8'>
+  <title>Package Managers</title>
+  <link rel='stylesheet' href='/assets/main.css'>
+  <link rel='stylesheet' href='/assets/fa-all.min.css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet'>
+  <script>
+    function tattooClick(){
+      if (document.getElementsByClassName('dark').length > 0){
+        document.body.classList.remove('dark')
+        sessionStorage.setItem('mode', 'light')
+      } else {
+        document.body.className = 'dark'
+        sessionStorage.setItem('mode', 'dark')
+      }
+    }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.eot"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    document.addEventListener('DOMContentLoaded', function(event) {
+      if (sessionStorage.getItem('mode') == 'dark'){
+        document.body.className = 'dark'
+      }
+    })
 
-      ga('create', 'UA-52470404-1', 'auto');
-      ga('send', 'pageview');
+    let index = 0
 
-    </script>
-    <script>
-      function logoClick(){
-        if (document.getElementsByClassName("dark").length > 0){
-          document.body.classList.remove("dark")
-          sessionStorage.setItem('mode', 'light')
-        } else {
-          document.body.className = "dark"
-          sessionStorage.setItem('mode', 'dark')
-        }
+    function occupationClick(event) {
+      const occupation = document.getElementById('occupation')
+      const intro = document.getElementById('intro')
+      const identities = [' software engineer',
+                        ' designer',
+                        ' friend',
+                        'n artist',
+                        ' daughter',
+                        ' photographer',
+                        ' good neighbor',
+                        ' ceramicist',
+                        ' human being',
+                        ' writer',
+                        ' painter',
+                        ' sister',
+                        ' cyclist',
+                        ' occational knitter']
+
+      if (!event.shiftKey) return;
+
+      // don't highlight on easter egg
+      if (index == 0) {
+        document.getSelection().removeAllRanges();
+        intro.classList.add('no-selection')
       }
 
-      document.addEventListener("DOMContentLoaded", function(event) {
-        if (sessionStorage.getItem('mode') == "dark"){
-          document.body.className = "dark"
-        }
-      })
-    </script>
-  </head>
-  <body class="">
-    <div class="container">
-      <div class="nav">
-  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
-  <!-- <h4><img class="logo" src="/img/nicole_web.svg" type="image/svg+xml"/><a href="/">Nicole Orchard</a></h4> -->
-  <h4><div id="logo" class="logo" onClick="logoClick();"></div><a href="/">Nicole Orchard</a></h4>
+      function reset() {
+        index = 0
+        occupation.textContent = identities[index]
+        intro.classList.remove('no-selection')
+      }
+
+      var timer = ++index
+      setTimeout(() => { if (timer == index) reset(); }, 500);
+      occupation.textContent = identities[index % identities.length]
+    }
+  </script>
+</head>
+
+  <body class='body'>
+    <div class='content'>
+      <header class='header'>
+    <a href='nicoleorchard.com'>Nicole Orchard</a>
+    <div id='tattoo' class='tattoo' onClick='tattooClick();'>
+      <div id='sun'></div>
+      <div id='moon'></div>
+      <div id='night'></div>
+    </div>
+</header>
+
+      <div class='title'>
+  <h1>Package Managers</h1>
+  <h2>The Logic Behind the Magic of Install</h2>
 </div>
 
-      <div class="post col-lg-7">
-    <h1 style="margin-bottom: 0px;">Package Managers</h1>
-    <!-- <span style="font-size: 20px; padding-right:10px;"></span> -->
-    <h3 style="font-size: 24px; margin-top: 0px;">The Logic Behind the Magic of Install</h3>
-    <p>June 22, 2017</p>
-    <hr>
-  <p>If you want to draw for the first time, someone might hand you a piece of paper and a pencil. They won’t spend time discussing where the paper and pencil came from. Instead, they’ll tell you about line, form, and negative space. If you want to write a Python program for the first time, someone might run the following commands on your machine:</p>
+<p>If you want to draw for the first time, someone might hand you a piece of paper and a pencil. They won’t spend time discussing where the paper and pencil came from. Instead, they’ll tell you about line, form, and negative space. If you want to write a Python program for the first time, someone might run the following commands on your machine:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>$ apt install python3
 $ pip3 install ipython
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then they would open iPython and show you some basic Python syntax.</p>
 
 <p>Package management is often glossed over because programming is the writing of programs, not the installing of programs. However, programming is also the organization of programs… and it actually <em>is</em> the installing of programs, sometimes. After spending over a year installing and uninstalling (but mostly installing) packages using brew, gem, and npm on my mac, I finally learned how package managers work on a virtual machine running Ubuntu. Understanding how package management works was a pretty satisfying ‘aha!’ moment for me, so I hope it is for you too.</p>
@@ -82,8 +105,7 @@ $ pip3 install ipython
 <h3 id="search">Search</h3>
 <p>When I needed to install Ruby to run a script on my VM, I used <code class="highlighter-rouge">aptitude</code> to search for a Ruby package.</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>$ aptitude search ruby
-</code></pre>
-</div>
+</code></pre></div>
 <p>My search returned a long list of .deb packages containing the word ‘ruby’. Where did this list come from? A file called <code class="highlighter-rouge">/etc/apt/sources.list</code> shows the source endpoint for both <code class="highlighter-rouge">deb</code> packages, which are binary files, and <code class="highlighter-rouge">deb-src</code> packages, which are source files.</p>
 <pre><code class="language-small">deb http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
 deb-src http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
@@ -94,8 +116,7 @@ deb-src http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
 <p>In order to install the latest version of Ruby (2.3) I could run either of two commands:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>$ aptitude install ruby2.3
 $ aptitude install ruby
-</code></pre>
-</div>
+</code></pre></div>
 <p>I chose to run the second because it installs the default version of Ruby, which is currently 2.3, but could change in the future. Upon running the install command I received this prompt:</p>
 <pre><code class="language-small">root@ubuntu:~# aptitude install ruby
 The following NEW packages will be installed:
@@ -111,8 +132,7 @@ Do you want to continue? [Y/n/?]
 <h3 id="organization">Organization</h3>
 <p>Once the install completes, the Ruby binary file is located in <code class="highlighter-rouge">/usr/bin</code>. If you run <code class="highlighter-rouge">echo $PATH</code> you can see the search path that is traversed when you run a program from the command line. Mine is the default for Ubuntu:</p>
 <div class="highlighter-rouge"><pre class="highlight"><code>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-</code></pre>
-</div>
+</code></pre></div>
 <ul>
   <li><code class="highlighter-rouge">/bin</code> contains binary programs that are necessary for basic functionality, like booting and repairing the system.</li>
   <li><code class="highlighter-rouge">/usr/bin</code> is where distribution managed packages are installed – so anything you would install with <code class="highlighter-rouge">aptitude install</code>.</li>
@@ -129,8 +149,7 @@ Do you want to continue? [Y/n/?]
 - EXECUTABLE DIRECTORY: /usr/local/bin
 - REMOTE SOURCES:
    - https://rubygems.org/
-</code></pre>
-</div>
+</code></pre></div>
 <p>The gem source address is <code class="highlighter-rouge">https://rubygems.org/</code>, but you can add other sources, or <a href="https://github.com/rubygems/rubygems-mirror">create a local mirror</a>. RubyGems is a language-specific package manager, so executable files are installed at <code class="highlighter-rouge">/usr/local/bin</code>. After installing the dotenv gem, I have a <code class="highlighter-rouge">dotenv</code> executable file in <code class="highlighter-rouge">/usr/local/bin</code>. The gem itself is installed in <code class="highlighter-rouge">/var/lib/gems/[ruby-version-number]</code>. Now I can use the gem by requiring it in my script or I can run the executable at the command-line.</p>
 
 <h3 id="help">Help</h3>
@@ -157,27 +176,16 @@ This aptitude does not have Super Cow Powers.
          *  /\---/\
             ~~   ~~
 ..."Have you mooed today?"...
-</code></pre>
-</div>
+</code></pre></div>
 <p>Although <code class="highlighter-rouge">aptitude</code> doesn’t have super cow powers, if you persist you might be rewarded with a drawing.</p>
 
-</div>
-<!-- <div class="post col-lg-5">
-</div> -->
-
-      <div class="row footer">
-  <hr>
-  <div class="rc-scout"></div>
-  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
-  <a href="https://nicoleorchard.tumblr.com" target="_blank"><i class="fa fa-tumblr-square" style="font-size:30px"></i></a>
-  <a href="https://github.com/norchard" target="_blank"><i class="fa fa-github" style="font-size:32px"></i></a>
-  <a href="https://www.instagram.com/norchardpie/" target="_blank"><i class="fa fa-instagram" style="font-size:32px"></i></a>
-  <a href="https://www.linkedin.com/in/nicole-orchard-6441b157" target="_blank"><i class="fa fa-linkedin-square" style="font-size:32px"></i></a>
-  <a href="https://twitter.com/norchard" target="_blank"><i class="fa fa-twitter-square" style="font-size:32px"></i></a>
-
-</div>
 
     </div>
-    <script async defer src="https://www.recurse-scout.com/loader.js?t=12f65113d9513ac795102fb8f3c08a6a"></script>
+    <footer class='footer'>
+  <a href='nicoleorchard.com' id='no'>NO</a>
+  <a href='https://github.com/norchard' target='_blank'><i class='fab fa-github'></i></a>
+  <a href='https://www.linkedin.com/in/nicole-orchard-6441b157' target='_blank'><i class='fab fa-linkedin'></i></a>
+</footer>
+
   </body>
 </html>

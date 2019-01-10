@@ -1,62 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang='en'>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nicole Orchard</title>
-    <link href="/styles/main.css" rel="stylesheet">
-    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS feed">
-    <script src="https://use.typekit.net/qnt8nxq.js"></script>
-    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+  <meta charset='utf-8'>
+  <title>What Should I Work On?</title>
+  <link rel='stylesheet' href='/assets/main.css'>
+  <link rel='stylesheet' href='/assets/fa-all.min.css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet'>
+  <script>
+    function tattooClick(){
+      if (document.getElementsByClassName('dark').length > 0){
+        document.body.classList.remove('dark')
+        sessionStorage.setItem('mode', 'light')
+      } else {
+        document.body.className = 'dark'
+        sessionStorage.setItem('mode', 'dark')
+      }
+    }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.eot"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    document.addEventListener('DOMContentLoaded', function(event) {
+      if (sessionStorage.getItem('mode') == 'dark'){
+        document.body.className = 'dark'
+      }
+    })
 
-      ga('create', 'UA-52470404-1', 'auto');
-      ga('send', 'pageview');
+    let index = 0
 
-    </script>
-    <script>
-      function logoClick(){
-        if (document.getElementsByClassName("dark").length > 0){
-          document.body.classList.remove("dark")
-          sessionStorage.setItem('mode', 'light')
-        } else {
-          document.body.className = "dark"
-          sessionStorage.setItem('mode', 'dark')
-        }
+    function occupationClick(event) {
+      const occupation = document.getElementById('occupation')
+      const intro = document.getElementById('intro')
+      const identities = [' software engineer',
+                        ' designer',
+                        ' friend',
+                        'n artist',
+                        ' daughter',
+                        ' photographer',
+                        ' good neighbor',
+                        ' ceramicist',
+                        ' human being',
+                        ' writer',
+                        ' painter',
+                        ' sister',
+                        ' cyclist',
+                        ' occational knitter']
+
+      if (!event.shiftKey) return;
+
+      // don't highlight on easter egg
+      if (index == 0) {
+        document.getSelection().removeAllRanges();
+        intro.classList.add('no-selection')
       }
 
-      document.addEventListener("DOMContentLoaded", function(event) {
-        if (sessionStorage.getItem('mode') == "dark"){
-          document.body.className = "dark"
-        }
-      })
-    </script>
-  </head>
-  <body class="">
-    <div class="container">
-      <div class="nav">
-  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
-  <!-- <h4><img class="logo" src="/img/nicole_web.svg" type="image/svg+xml"/><a href="/">Nicole Orchard</a></h4> -->
-  <h4><div id="logo" class="logo" onClick="logoClick();"></div><a href="/">Nicole Orchard</a></h4>
+      function reset() {
+        index = 0
+        occupation.textContent = identities[index]
+        intro.classList.remove('no-selection')
+      }
+
+      var timer = ++index
+      setTimeout(() => { if (timer == index) reset(); }, 500);
+      occupation.textContent = identities[index % identities.length]
+    }
+  </script>
+</head>
+
+  <body class='body'>
+    <div class='content'>
+      <header class='header'>
+    <a href='nicoleorchard.com'>Nicole Orchard</a>
+    <div id='tattoo' class='tattoo' onClick='tattooClick();'>
+      <div id='sun'></div>
+      <div id='moon'></div>
+      <div id='night'></div>
+    </div>
+</header>
+
+      <div class='title'>
+  <h1>What Should I Work On?</h1>
+  <h2>A Mini Guide for New Programmers</h2>
 </div>
 
-      <div class="post col-lg-7">
-    <h1 style="margin-bottom: 0px;">What Should I Work On?</h1>
-    <!-- <span style="font-size: 20px; padding-right:10px;"></span> -->
-    <h3 style="font-size: 24px; margin-top: 0px;">A Mini Guide for New Programmers</h3>
-    <p>May 23, 2017</p>
-    <hr>
-  <p>Last year I was a web designer with a time-consuming programming pastime. In August I left my job to travel and study full-time. This post is about what I learned from nine months of self-study and the resources I used.</p>
+<p>Last year I was a web designer with a time-consuming programming pastime. In August I left my job to travel and study full-time. This post is about what I learned from nine months of self-study and the resources I used.</p>
 
 <h3 id="bootcamps-might-not-be-for-you">Bootcamps might not be for you</h3>
 <p>Bootcamps are great for people with financial resources who want to dive into web development without previous technical experience. I opted out of doing a bootcamp for three reasons:</p>
@@ -114,7 +138,7 @@
     <p><a href="http://pages.cs.wisc.edu/~remzi/OSTEP/">The Comet Book</a> is an awesome resource for learning about operating systems and a great technical reference. I skipped around in it while following along with lectures from Berkeley’s Introduction to Operating Systems. I recently came back to the Event Based Concurrency chapter while learning about the difference between Nginx and Apache servers. It is really well written.</p>
   </li>
   <li>
-    <p><a href="http://poignant.guide/">Why’s Poignant Guide to Ruby</a> is a whimsical illustrated overview of the Ruby language. I picked up some cool tricks for remembering syntax, like that an argument passed to a block slides down a waterslide into the block <code class="highlighter-rouge"><span class="p">{</span><span class="err">|x|</span><span class="w"> </span><span class="err">x</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code>. It’s not a comprehensive introduction, but it’s a lot of fun to read.</p>
+    <p><a href="http://poignant.guide/">Why’s Poignant Guide to Ruby</a> is a whimsical illustrated overview of the Ruby language. I picked up some cool tricks for remembering syntax, like that an argument passed to a block slides down a waterslide into the block <code class="highlighter-rouge">{|x| x + 5}</code>. It’s not a comprehensive introduction, but it’s a lot of fun to read.</p>
   </li>
   <li>
     <p><a href="https://pragprog.com/book/ruby/programming-ruby">The Pickaxe Book</a> is a comprehensive introduction to Ruby.</p>
@@ -130,23 +154,13 @@
 If you’re excited about programming and want to make a lot more computer friends, consider applying to <a href="https://www.recurse.com/">the Recurse Center</a>!</p>
 
 
-</div>
-<!-- <div class="post col-lg-5">
-</div> -->
-
-      <div class="row footer">
-  <hr>
-  <div class="rc-scout"></div>
-  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
-  <a href="https://nicoleorchard.tumblr.com" target="_blank"><i class="fa fa-tumblr-square" style="font-size:30px"></i></a>
-  <a href="https://github.com/norchard" target="_blank"><i class="fa fa-github" style="font-size:32px"></i></a>
-  <a href="https://www.instagram.com/norchardpie/" target="_blank"><i class="fa fa-instagram" style="font-size:32px"></i></a>
-  <a href="https://www.linkedin.com/in/nicole-orchard-6441b157" target="_blank"><i class="fa fa-linkedin-square" style="font-size:32px"></i></a>
-  <a href="https://twitter.com/norchard" target="_blank"><i class="fa fa-twitter-square" style="font-size:32px"></i></a>
-
-</div>
 
     </div>
-    <script async defer src="https://www.recurse-scout.com/loader.js?t=12f65113d9513ac795102fb8f3c08a6a"></script>
+    <footer class='footer'>
+  <a href='nicoleorchard.com' id='no'>NO</a>
+  <a href='https://github.com/norchard' target='_blank'><i class='fab fa-github'></i></a>
+  <a href='https://www.linkedin.com/in/nicole-orchard-6441b157' target='_blank'><i class='fab fa-linkedin'></i></a>
+</footer>
+
   </body>
 </html>

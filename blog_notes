@@ -1,4 +1,0 @@
-v1) link to where the quote came from
-v2) "Debian OS" isn't wrong, but it doesn't sound right. Maybe "Ubuntu is a flavor of the Debian Linux distribution.
-3) Maybe show the contents of /etc/apt/sources.list ?
-4) 'but older versions of language specific packages' not just language specific packages, often all packages. However, this isn't always true, depends on the Linux distro. This is related to LTS, Long-Term Support. Some distros (like Ubuntu) create LTS releases that are meant to be supported for an extended period (like 2 years) while their other point releases are abanonded more rapidly. Some distros like CentOS/RHEL (RedHat Enterprise Linux) target the server market where stability is sacrosanct so they especially tend to run older packages and backport patches/security fixes.
