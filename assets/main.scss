@@ -1,0 +1,47 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset 'utf-8';
+
+// variables
+$fa-font-path: './webfonts';
+
+$light-color: #e0d9d9;
+$dark-color: #100e21;
+$accent-color: #ff4d35;
+$white: #ffffff;
+
+$font-family: aktiv-grotesk, Helvetica, 'Trebuchet MS', Arial, sans-serif;
+$font-weight-default: 500;
+$font-weight-light: 400;
+
+$radius: 30px;
+
+$tablet: 900px;
+$mobile: 600px;
+
+:root {
+  --font-size-text: 18px;
+  --font-size-base: 18px;
+}
+
+@media only screen and (max-width: $tablet) {
+  :root {
+    --font-size-text: 18px;
+    --font-size-base: 16px;
+  }
+}
+
+@media only screen and (max-width: $mobile) {
+  :root {
+    --font-size-text: 16px;
+    --font-size-base: 13px;
+  }
+}
+
+@import
+  '_layout',
+  '_typography',
+  '_header',
+  '_footer',
+  '_fa-brands';

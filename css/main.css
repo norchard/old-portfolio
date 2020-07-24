@@ -1,0 +1,322 @@
+html {
+  background-color: #d6dbf3;
+}
+
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  margin: 0;
+  color: #100e21;
+  min-height: 100vh;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  line-height: 1.5em;
+  border-top: solid 3px #1e47ff;
+  border-bottom: solid 3px #ff4d35;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+h1 {
+  font-size: 1.8em;
+  line-height: 1.3em;
+  font-weight: normal;
+}
+
+main {
+  margin-bottom: 50px;
+}
+
+#intro > p > img {
+ padding-bottom: 0px;
+}
+
+img {
+ width: 100%;
+ padding-bottom: 30px;
+}
+
+.container {
+  width: 100%;
+  display: block;
+  margin: 0px auto;
+  max-width: 670px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 1em;
+  width: 100%;
+  border-bottom: 2px solid;
+  margin-top: 5px;
+}
+
+a:hover {
+  color: #ff4d35;
+}
+
+nav {
+  margin: 30px 0px 30px 0px;
+}
+
+.nav-link {
+  margin-right: 20px;
+}
+
+.nav-link::after {
+  width: 0%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
+  grid-gap: 2em;
+}
+
+.circle-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(8rem, 100%), 1fr));
+}
+
+.grid-image {
+  background-color: yellow;
+  background-size: contain;
+  position: static;
+}
+
+.grid-image::before {
+  content: "";
+  padding-bottom: 100%;
+  display: block;
+}
+
+.grid-title {
+  margin-top: 5px;
+  font-weight: normal;
+}
+
+.grid-item:hover > .grid-title {
+  color: #ff4d35;
+}
+
+.circle-grid {
+  text-align: center;
+}
+
+.circle-grid .grid-image {
+  border-radius: 50%;
+}
+
+footer {
+  margin-top: auto;
+  height: 40px;
+}
+
+footer a {
+  display: inline-block;
+  position: relative;
+  color: #ff4d35;
+}
+
+footer a:hover ::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 1em;
+  width: 100%;
+  border-bottom: 2px solid;
+  margin-top: 5px;
+}
+
+#tattoo {
+  float: right;
+}
+
+#sun {
+  box-sizing: border-box;
+  border: solid 15px #ff4d35;
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  float: right;
+  transition: all 0.5s ease;
+}
+
+#sun:hover{
+  margin-top: -5px;
+}
+
+#moon {
+  box-sizing: border-box;
+  border: solid 2.5px #e0d9d9;
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  float: right;
+  margin-right: calc(-1 * 30px / 2.75);
+  transition: all 0.5s ease;
+}
+
+#moon:hover{
+  margin-top: -5px;
+}
+
+#night {
+  background-color: none;
+  height: calc(30px * 1.5);
+  width: calc(30px * 1.5);
+  border-radius: 30px;
+  float: right;
+  margin-right: calc(-1 * 30px / 1.5);
+  margin-top: calc(-1 * 30px / 1.85);
+  transition: all 0s linear;
+  transition-delay: 0s;
+  transform: scale(.25);
+}
+
+.dark {
+  background-color: #1d1a3b;
+}
+
+.dark body {
+  background-color: #100e21;
+  color: white;
+}
+
+.dark #sun {
+  border: solid 3px #1e47ff;
+}
+
+.dark #moon {
+    border: solid 15px #e0d9d9;
+  }
+
+.dark #night {
+    background-color: #100e21;
+    transition: all .5s ease;
+    transition-delay: 0.2s;
+    transform: scale(1);
+}
+
+.recurse::after {
+  content: "*";
+}
+
+hr {
+  border: 1px solid #e0d9d9;
+}
+
+.centered {
+  text-align: center;
+}
+
+.illustration {
+  width: 75%;
+  padding: 30px 0px;
+}
+
+pre {
+  overflow: auto;
+  margin: 0px;
+}
+
+/* code {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 600;
+  font-size: 0.8em;
+} */
+
+pre code {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: block;
+    line-height: 1.6em;
+    border: solid 1px #e0d9d9;
+    padding: 10px 20px 10px 20px;
+    font-size: 0.8em;
+    color: #100e21;
+    background-color: #ffffff;
+}
+/* Responsive Behavior */
+@media only screen and (max-width: 600px) {
+  main {
+    font-size: 20px;
+    line-height: 1.6em;
+    padding: 20px;
+  }
+  nav, footer {
+    padding: 0 20px;
+  }
+  .illustration {
+    width: 100%;
+    padding: 10px 0px;
+  }
+  #intro > h1 {
+    font-size: 28px;
+  }
+  img {
+   padding-bottom: 0px;
+  }
+  a {
+    font-weight: bold;
+  }
+  pre code{
+    font-size: 14px;
+  }
+  #nav-links {
+    width: 180px;
+    display: inline;
+    float: left;
+    padding-top: 10px;
+  }
+  .nav-link {
+    margin-right: 16px;
+  }
+  #tattoo {
+    margin-top: 15px;
+  }
+  #moon {
+    border: solid 4px #e0d9d9;
+    height: 40px;
+    width: 40px;
+  }
+  #sun:hover{
+    margin-top: 0px;
+  }
+  #moon:hover{
+    margin-top: 0px;
+  }
+  #sun {
+    height: 40px;
+    width: 40px;
+    border: solid 20px #ff4d35;
+  }
+  .dark #moon {
+    border: solid 20px #e0d9d9;
+    transition: none;
+  }
+  .dark #sun {
+    border: solid 3px #ff4d35;
+    transition: none;
+  }
+  .dark #night {
+    transition: none;
+  }
+  #night {
+    height: calc(40px * 1.5);
+    width: calc(40px * 1.5);
+    border-radius: 30px;
+    margin-right: calc(-1 * 40px / 1.5);
+    margin-top: calc(-1 * 40px / 1.75);
+  }
+}

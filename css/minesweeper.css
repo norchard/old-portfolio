@@ -1,0 +1,79 @@
+.button {
+  text-align: left;
+  font-size: 14px;
+  background-color: tomato;
+  color: white;
+  font-weight: 400;
+  border: solid 2px goldenrod;
+  padding: 5px 10px 7px 10px;
+  margin: 0px 10px 10px 0px;
+}
+
+.button:active {
+  background-color: orangered;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:hover {
+  outline: solid orangered 2px;
+  outline-offset: -4px;
+}
+
+.cell {
+  box-sizing: border-box;
+  background-color: tomato;
+  border: solid 1px goldenrod;
+  line-height: 18px;
+  padding-top: 7px;
+  transition: ease;
+  cursor: default;
+}
+
+.cell.guessable:active {
+  background-color: orangered;
+}
+
+.cell.guessable:hover {
+  outline: solid orangered 2px;
+  outline-offset: -3px;
+}
+
+.guessed {
+  background-color: lightsalmon;
+}
+
+.board {
+  text-align: center;
+  display: grid;
+  border: solid 1px goldenrod;
+  font-weight: 600;
+  color: #100e21;
+}
+
+.none {
+  display: none;
+}
+
+.small {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  height: calc(6 * 32px + 2px);
+  width: calc(6 * 32px + 2px);
+}
+
+.medium {
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  height: calc(9 * 32px + 2px);
+  width: calc(9 * 32px + 2px);
+}
+
+.large {
+  grid-template-columns: repeat(12, 32px);
+  grid-template-rows: repeat(12, 32px);
+  height: calc(12 * 32px);
+  width: calc(12 * 32px);
+}

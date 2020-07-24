@@ -1,104 +1,69 @@
 <!doctype html>
-<html lang='en'>
+<html lang="en">
   <head>
-  <meta charset='utf-8'>
-  <title>Nicole Orchard</title>
-  <link rel='stylesheet' href='/assets/main.css'>
-  <link rel='stylesheet' href='/assets/fa-all.min.css'>
+	<meta name="generator" content="Hugo 0.69.2" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://use.typekit.net/qnt8nxq.css">
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Mono'>
-  <script>
-    function tattooClick(){
-      if (document.getElementsByClassName('dark').length > 0){
-        document.body.classList.remove('dark')
-        sessionStorage.setItem('mode', 'light')
-      } else {
-        document.body.className = 'dark'
-        sessionStorage.setItem('mode', 'dark')
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function(event) {
-      if (sessionStorage.getItem('mode') == 'dark'){
-        document.body.className = 'dark'
-      }
-    })
-
-    let index = 0
-
-    function occupationClick(event) {
-      const occupation = document.getElementById('occupation')
-      const intro = document.getElementById('intro')
-      const identities = [' software engineer',
-                        ' designer',
-                        ' friend',
-                        'n artist',
-                        ' daughter',
-                        ' photographer',
-                        ' good neighbor',
-                        ' ceramicist',
-                        ' human being',
-                        ' writer',
-                        ' painter',
-                        ' sister',
-                        ' cyclist',
-                        ' occational knitter']
-
-      if (!event.shiftKey) return;
-
-      // don't highlight on easter egg
-      if (index == 0) {
-        document.getSelection().removeAllRanges();
-        intro.classList.add('no-selection')
-      }
-
-      function reset() {
-        index = 0
-        occupation.textContent = identities[index]
-        intro.classList.remove('no-selection')
-      }
-
-      var timer = ++index
-      setTimeout(() => { if (timer == index) reset(); }, 500);
-      occupation.textContent = identities[index % identities.length]
-    }
-  </script>
+  
+  
+  <link rel="stylesheet" href="nicoleorchard.com/css/main.css">
+  
+  <script src="nicoleorchard.com/assets/sunset.js" type="text/javascript"></script>
+  <title></title>
 </head>
 
   <body>
-    <div class='content'>
-      <header class='header'>
-    <a href='/'>Nicole Orchard</a>
-    <div id='tattoo' class='tattoo' onClick='tattooClick();'>
-      <div id='sun'></div>
-      <div id='moon'></div>
-      <div id='night'></div>
-    </div>
-</header>
-
-      <div class="title">
-  <h1 id="intro"> I am a<span id="occupation" onclick="occupationClick(event)"> software engineer</span><br /> based in Brooklyn, currently working at <a href="http://mapbox.com" target="_blank">Mapbox</a>.</h1>
+    <div class="container">
+  <nav>
+  <div id='tattoo' class='tattoo' onClick='tattooClick();'>
+  <div id='sun'></div>
+  <div id='moon'></div>
+  <div id='night'></div>
 </div>
 
-<div id="posts">
-  <h2>Writing from my batch at the <a id="recurse" href="http://recursecenter.com" target="_blank">Recurse Center</a>:</h2>
-  <ul>
+  <div id="nav-links">
+    
       
-          <li><a href="/blog/compilers"><strong>An Intro to Compilers</strong></a> - How to Speak to Computers, Pre-Siri</li>
       
-          <li><a href="/blog/package-managers"><strong>Package Managers</strong></a> - The Logic Behind the Magic of Install</li>
+      <a class="nav-link" href="nicoleorchard.com/"><i data-feather=""></i> Nicole Orchard</a>
+    
       
-          <li><a href="/blog/what-should-i-work-on"><strong>What Should I Work On?</strong></a> - A Mini Guide for New Programmers</li>
       
-  </ul>
+      <a class="nav-link" href="nicoleorchard.com/blog/"><i data-feather=""></i> Blog</a>
+    
+      
+      
+      <a class="nav-link" href="nicoleorchard.com/projects/"><i data-feather=""></i> Projects</a>
+    
+  </div>
+  </nav>
+</div>
+
+    <div class="container">
+      <main id="main">
+       
+
+<div id="intro">
+  <h1 id="hi-i-am-a-berlin-based-artist-graphic-designer-and-software-engineer-who-enjoys-working-with-people-finding-creative-solutions-to-problems-explaining-complex-subjects-simply-and-having-fun-in-the-process-i-have-experience-working-on-large-scale-distributed-systems-at-mapboxhttpsmapboxcom-and-creating-branding-and-websites-at-the--digital-agency-division-ofhttpsdivisionofcom">Hi! I am a Berlin-based artist, graphic designer, and software engineer who enjoys working with people, finding creative solutions to problems, explaining complex subjects simply, and having fun in the process. I have experience working on large scale distributed systems at <a href="https://mapbox.com" target="_blank">Mapbox</a>
+ and creating branding and websites at the  digital agency <a href="https://divisionof.com" target="_blank">Division Of/</a>
+.</h1>
+
 </div>
 
 
+       
+      </main>
     </div>
-    <footer class='footer'>
-  <a href='/' id='no'>NO</a>
-  <a href='https://github.com/norchard' target='_blank'><i class='fab fa-github'></i></a>
-  <a href='https://www.linkedin.com/in/nicole-orchard-6441b157' target='_blank'><i class='fab fa-linkedin'></i></a>
+    <footer>
+  
+  <div class="container">
+    
+      
+      
+      <a class="nav-link" href="https://www.linkedin.com/in/nicole-orchard-6441b157"  target="_blank"><i data-feather=""></i> linkedin</a>
+    
+  </div>
 </footer>
 
   </body>
