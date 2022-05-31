@@ -1,76 +1,208 @@
-<!doctype html>
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-  <meta charset='utf-8'>
-  <title>Nicole Orchard</title>
-  <link rel='stylesheet' href='/assets/main.css'>
-  <link rel='stylesheet' href='/assets/fa-all.min.css'>
-  <link rel="stylesheet" href="https://use.typekit.net/qnt8nxq.css">
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Mono'>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nicole Orchard</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/ghcolors.css" rel="stylesheet">
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS feed">
+    <script src="https://use.typekit.net/qnt8nxq.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
 
-    ga('create', 'UA-52470404-1', 'auto');
-    ga('send', 'pageview');
-
-  </script>
-  <script>
-    function tattooClick(){
-      if (document.getElementsByClassName('dark').length > 0){
-        document.body.classList.remove('dark')
-        sessionStorage.setItem('mode', 'light')
-      } else {
-        document.body.className = 'dark'
-        sessionStorage.setItem('mode', 'dark')
+    <script>
+      function logoClick(){
+        if (document.getElementsByClassName("dark").length > 0){
+          document.body.classList.remove("dark")
+          sessionStorage.setItem('mode', 'light')
+        } else {
+          document.body.className = "dark"
+          sessionStorage.setItem('mode', 'dark')
+        }
       }
-    }
 
-    document.addEventListener('DOMContentLoaded', function(event) {
-      if (sessionStorage.getItem('mode') == 'dark'){
-        document.body.className = 'dark'
-      }
-    })
-  </script>
-</head>
-
-  <body>
-    <div class='content'>
-      <header class='header'>
-    <a href='/'>Nicole Orchard</a>
-    <div id='tattoo' class='tattoo' onClick='tattooClick();'>
-      <div id='sun'></div>
-      <div id='moon'></div>
-      <div id='night'></div>
-    </div>
-</header>
-
-      <div class="title">
-  <h1 id="intro">This site is under construction. Check back soon for something new. ✨</h1>
-</div>
-
-<div id="posts">
-  <h2>Writing from my batch at the <a id="recurse" href="http://recursecenter.com" target="_blank">Recurse Center</a>:</h2>
-  <ul>
-      
-          <li><a href="/blog/compilers"><strong>An Intro to Compilers</strong></a> - How to Speak to Computers, Pre-Siri</li>
-      
-          <li><a href="/blog/package-managers"><strong>Package Managers</strong></a> - The Logic Behind the Magic of Install</li>
-      
-          <li><a href="/blog/what-should-i-work-on"><strong>What Should I Work On?</strong></a> - A Mini Guide for New Programmers</li>
-      
-  </ul>
+      document.addEventListener("DOMContentLoaded", function(event) {
+        if (sessionStorage.getItem('mode') == "dark"){
+          document.body.className = "dark"
+        }
+      })
+    </script>
+  </head>
+  <body class="">
+    <div class="container">
+        <div class="nav">
+  <h4>
+    <a href="/">Nicole Orchard</a>
+  </h4>
 </div>
 
 
-    </div>
-    <footer class='footer'>
-  <a href='/' id='no'>NO</a>
-  <a href='https://github.com/norchard' target='_blank'><i class='fab fa-github'></i></a>
-  <a href='https://www.linkedin.com/in/nicole-orchard-6441b157' target='_blank'><i class='fab fa-linkedin'></i></a>
-</footer>
 
+<div class="row">
+  <div class="col-lg-12 dog">
+    <h1 class="title">Designer & Programmer</h1>
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-lg-4">
+    <h4>Blog</h4>
+  </div>
+
+  <div class="col-lg-8">
+
+    <a href="/posts/an-intro-to-compilers/">
+        <div class="post-item">
+          <div class="caption">
+            <h3>An Intro to Compilers</h3>
+            <p>How to Speak to Computers, Pre-Siri</p>
+          </div>
+        </div>
+    </a>
+
+    <a href="/posts/minesweeper-tutorial-part-1/">
+        <div class="post-item">
+          <div class="caption">
+            <h3>React Minesweeper Tutorial Part 1</h3>
+            <p>The Setup (Webpack and Babel)</p>
+          </div>
+        </div>
+    </a>
+
+    <a href="/posts/minesweeper-tutorial-part-2/">
+        <div class="post-item">
+          <div class="caption">
+            <h3>React Minesweeper Tutorial Part 2</h3>
+            <p>The Game (React)</p>
+          </div>
+        </div>
+    </a>
+
+    <a href="/posts/package-managers/">
+        <div class="post-item">
+          <div class="caption">
+            <h3>Package Managers</h3>
+            <p>The Logic Behind the Magic of Install</p>
+          </div>
+        </div>
+    </a>
+
+    <a href="/posts/programming-resources/">
+        <div class="post-item">
+          <div class="caption">
+            <h3>Programming Resources</h3>
+            <p>I have found useful</p>
+          </div>
+        </div>
+    </a>
+
+
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-lg-4">
+    <h4>Projects</h4>
+  </div>
+  <div class="col-lg-8 projects">
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <h3><a href="./projects/todo-app/index.html" target="blank">Todo App <span class="glyphicon glyphicon-share-alt"></span></a></h3>
+      <p>React todo list application written with state persisting in LocalStorage. Read the <a target="blank" href="https://github.com/norchard/todo-app/tree/master/src/components">code</a>.</p>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <h3><a href="./projects/minesweeper/index.html" target="blank">Minesweeper <span class="glyphicon glyphicon-share-alt"></span></a></h3>
+      <p>Minesweeper game written in Javascript using React. Read the <a target="blank" href="https://github.com/norchard/minesweeper/tree/master/src/components">code</a>.</p>
+    </div>
+  </div>
+</div>
+
+<hr>
+<div class="row home">
+  <div class="col-lg-4">
+    <h4>Design</h4>
+  </div>
+  <div class="col-lg-8 works">
+
+    <div class="col-lg-6 col-md-6 col-sm-6 post-item">
+      <a href="/works/junior-academy/">
+          <div class="thumbnail">
+            <img src="/img/work/ja_small.png">
+            <div class="caption">
+              <h3>Junior Academy</h3>
+              <p>Branding, information architecture, and visual design for a virtual STEM research program for high school students around the globe.</p>
+            </div>
+            <div class="view">
+              View Project
+            </div>
+          </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 post-item">
+      <a href="/works/kulen-outreach/">
+          <div class="thumbnail">
+            <img src="/img/work/ko_small.png">
+            <div class="caption">
+              <h3>Kulen Outreach</h3>
+              <p>Branding, information architecture and visual design for a non-profit whose mission is to bring quality education to rural Cambodian children.</p>
+            </div>
+            <div class="view">
+              View Project
+            </div>
+          </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 post-item">
+      <a href="/works/nbc-universal/">
+          <div class="thumbnail">
+            <img src="/img/work/nbcu_small.png">
+            <div class="caption">
+              <h3>NBCUniversal</h3>
+              <p>Information architecture and visual design for the Content Innovation Agency (CIA) portfolio of branded content across NBCU&#39;s networks.</p>
+            </div>
+            <div class="view">
+              View Project
+            </div>
+          </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 post-item">
+      <a href="/works/technology-for-education-consortium/">
+          <div class="thumbnail">
+            <img src="/img/work/tec_small.png">
+            <div class="caption">
+              <h3>TEC</h3>
+              <p>Branding, illustration, and visual design for the Technology for Education Consortium, an education technology non-profit.</p>
+            </div>
+            <div class="view">
+              View Project
+            </div>
+          </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+        <div class="row footer">
+  <hr>
+  <div class="rc-scout"></div>
+  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
+  <a href="https://nicoleorchard.tumblr.com" target="_blank"><i class="fa fa-tumblr-square" style="font-size:30px"></i></a>
+  <a href="https://github.com/norchard" target="_blank"><i class="fa fa-github" style="font-size:32px"></i></a>
+  <a href="https://www.instagram.com/norchardpie/" target="_blank"><i class="fa fa-instagram" style="font-size:32px"></i></a>
+  <a href="https://www.linkedin.com/in/nicole-orchard-6441b157" target="_blank"><i class="fa fa-linkedin-square" style="font-size:32px"></i></a>
+  <a href="https://twitter.com/norchard" target="_blank"><i class="fa fa-twitter-square" style="font-size:32px"></i></a>
+
+</div>
+
+    </div>
   </body>
 </html>

@@ -1,0 +1,151 @@
+.App {
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-weight: 300;
+}
+
+body {
+  background-color: #282c34;
+}
+
+.App-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.todos {
+  padding-left: 0px;
+}
+
+.title {
+  font-weight: 800;
+  margin-top: 100px;
+  opacity: 30%
+}
+
+.addButton {
+  cursor: pointer;
+  margin-left: -35px;
+  border: none;
+  background-color: transparent;
+}
+
+.addButton svg {
+  position: relative;
+  top: 7px;
+  font-size: 25px;
+}
+
+.input input{
+  width: 400px;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 15px;
+  border: none;
+  padding-left: 15px;
+}
+
+.input button {
+  display: absolute;
+  top: 0;
+}
+
+/* .tile {
+  display: grid;
+  background-color: salmon;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 10px;
+} */
+
+/* checkmark css: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp */
+
+.checkContainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: left;
+  width: 400px;
+}
+
+.checked {
+  text-decoration: line-through
+}
+
+.ghostCheckBox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #777;
+  border-radius: 3px;
+}
+
+.checkContainer input:checked ~ .checkBox {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkBox:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkContainer input:checked ~ .checkBox:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkContainer .checkBox:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.deleteButton{
+  float: right;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: black;
+  height: 30px;
+  width: 30px;
+}
+
+.deleteButton svg {
+  color: white;
+  font-size: 18px;
+  margin-top: 3px;
+}
