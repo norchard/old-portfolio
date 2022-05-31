@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nicole Orchard</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/ghcolors.css" rel="stylesheet">
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS feed">
+    <script src="https://use.typekit.net/qnt8nxq.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+
+    <script>
+      function logoClick(){
+        if (document.getElementsByClassName("dark").length > 0){
+          document.body.classList.remove("dark")
+          sessionStorage.setItem('mode', 'light')
+        } else {
+          document.body.className = "dark"
+          sessionStorage.setItem('mode', 'dark')
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function(event) {
+        if (sessionStorage.getItem('mode') == "dark"){
+          document.body.className = "dark"
+        }
+      })
+    </script>
+  </head>
+  <body class="">
+    <div class="container">
+        <div class="nav">
+  <h4>
+    <a href="/">Nicole Orchard</a>
+  </h4>
+</div>
+
+        
+</br></br>
+
+<div class="post">
+  <h1>Package Managers</h1>
+  <h3>The Logic Behind the Magic of Install</h3>
+  <p>If you want to draw for the first time, someone might hand you a piece of paper and a pencil. They won't spend time discussing where the paper and pencil came from. Instead, they'll tell you about line, form, and negative space. If you want to write a Python program for the first time, someone might run the following commands on your machine:</p>
+<pre><code>$ apt install python3
+$ pip3 install ipython
+</code></pre>
+<p>Then they would open iPython and show you some basic Python syntax.</p>
+<p>Package management is often glossed over because programming is the writing of programs, not the installing of programs. However, programming is also the organization of programs... and it actually <em>is</em> the installing of programs, sometimes. After spending over a year installing and uninstalling (but mostly installing) packages using brew, gem, and npm on my mac, I finally learned how package managers work on a virtual machine running Ubuntu. Understanding how package management works was a pretty satisfying 'aha!' moment for me, so I hope it is for you too.</p>
+<h3>What is a Package Manager?</h3>
+<blockquote>
+<p>A <em>package manager</em> keeps track of what software is installed on your computer, and allows  you to easily install new software, upgrade software to newer versions, or remove software that you previously installed. As the name suggests, package managers deal with <em>packages</em>: collections of files that are bundled together and can be installed and removed as a group.
+– <a href="http://aptitude.alioth.debian.org/doc/en/pr01s02.html">Aptitude User Manual</a></p>
+</blockquote>
+<p>There are essentially two types of package managers:</p>
+<ul>
+<li><strong>System-level package managers</strong> are highly integrated into the operating system.
+Ubuntu is a flavor of the Debian Linux distribution, which means it uses <code>dpkg</code>, the Debian package manager. <code>dpkg</code> is a low level tool that is used to install, remove, and provide information about individual .deb packages. Some packages depend on other packages, but <code>dpkg</code> doesn't manage dependencies. User friendly frontend tools like <code>apt</code> manage package dependencies and versioning decisions. Both <code>dpkg</code> and <code>apt</code> come pre-installed with Ubuntu. <code>aptitude</code> is another frontend to <code>dpkg</code> based on <code>apt</code>, with some additional functionality. You can install <code>aptitude</code> by running <code>apt install aptitude</code>.</li>
+<li><strong>Language-specific package managers</strong> manage one programming language's libraries and are operating system independent.
+RubyGems is a package manager for the Ruby programming language. It manages installation, dependencies, and versioning of Ruby packages, called gems. <a href="http://guides.rubygems.org/what-is-a-gem/">Ruby gems</a> include code, documentation, and a gemspec file.</li>
+</ul>
+<h3>Search</h3>
+<p>When I needed to install Ruby to run a script on my VM, I used <code>aptitude</code> to search for a Ruby package.</p>
+<pre><code>$ aptitude search ruby
+</code></pre>
+<p>My search returned a long list of .deb packages containing the word 'ruby'. Where did this list come from? A file called <code>/etc/apt/sources.list</code> shows the source endpoint for both <code>deb</code> packages, which are binary files, and <code>deb-src</code> packages, which are source files.</p>
+<pre><code>deb http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
+deb-src http://mirrors.digitalocean.com/ubuntu/ xenial main restricted
+</code></pre>
+<p>My VM is a DigitalOcean Droplet, so the source url is an Ubuntu mirror hosted by DigitalOcean. A mirror is just a duplicate of a canonical package archive. Ubuntu keeps <a href="https://launchpad.net/ubuntu/+archivemirrors">a list of registered mirrors</a> that are open to use by the general public. DigitalOcean's mirror isn't on that list because it is only intended to be used by DigitalOcean Droplets. Anyone can <a href="https://help.ubuntu.com/community/Rsyncmirror">create a mirror</a>.</p>
+<h3>Installation</h3>
+<p>In order to install the latest version of Ruby (2.3) I could run either of two commands:</p>
+<pre><code>$ aptitude install ruby2.3
+$ aptitude install ruby
+</code></pre>
+<p>I chose to run the second because it installs the default version of Ruby, which is currently 2.3, but could change in the future. Upon running the install command I received this prompt:</p>
+<pre><code>root@ubuntu:~# aptitude install ruby
+The following NEW packages will be installed:
+  fonts-lato{a} javascript-common{a} libjs-jquery{a} libruby2.3{a}
+  rake{a} ruby ruby-did-you-mean{a} ruby-minitest{a}
+  ruby-net-telnet{a} ruby-power-assert{a} ruby-test-unit{a}
+  ruby2.3{a} rubygems-integration{a} unzip{a} zip{a}
+0 packages upgraded, 15 newly installed, 0 to remove and 22 not upgraded. Need to get 0 B/6,359 kB of archives. After unpacking 28.6 MB will be used.
+Do you want to continue? [Y/n/?]
+</code></pre>
+<p>Those are Ruby's dependencies! Some of them seem like nonsense. I'm not sure why Ruby needs Lato, but others are logical, like the Ruby library and Rake, which is Ruby's build automation tool (think Ruby Make).</p>
+<h3>Organization</h3>
+<p>Once the install completes, the Ruby binary file is located in <code>/usr/bin</code>. If you run <code>echo $PATH</code> you can see the search path that is traversed when you run a program from the command line. Mine is the default for Ubuntu:</p>
+<pre><code>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+</code></pre>
+<ul>
+<li><code>/bin</code> contains binary programs that are necessary for basic functionality, like booting and repairing the system.</li>
+<li><code>/usr/bin</code> is where distribution managed packages are installed -- so anything you would install with <code>aptitude install</code>.</li>
+<li><code>/usr/local/bin</code> is where user-installed packages go, including packages installed by language-specific package managers.</li>
+</ul>
+<p><code>sbin</code> is where packages that need to be run as root are installed. Now my VM can run <code>ruby my_script.rb</code> because it will find an executable Ruby program in <code>/usr/bin</code>.</p>
+<h3>Gems</h3>
+<p>Actually, my VM couldn't run my script just yet because I also needed a Ruby gem called <code>dotenv</code> to load environment variables into my script. I found it using <code>gem search</code> and installed it with <code>gem install dotenv</code>.</p>
+<p>Where do gems come from and where are they installed? You can find out by running <code>gem environment</code>. Among other environment variables, you'll see:</p>
+<pre><code>- INSTALLATION DIRECTORY: /var/lib/gems/2.3.0
+- EXECUTABLE DIRECTORY: /usr/local/bin
+- REMOTE SOURCES:
+   - https://rubygems.org/
+</code></pre>
+<p>The gem source address is <code>https://rubygems.org/</code>, but you can add other sources, or <a href="https://github.com/rubygems/rubygems-mirror">create a local mirror</a>. RubyGems is a language-specific package manager, so executable files are installed at <code>/usr/local/bin</code>. After installing the dotenv gem, I have a <code>dotenv</code> executable file in <code>/usr/local/bin</code>. The gem itself is installed in <code>/var/lib/gems/[ruby-version-number]</code>. Now I can use the gem by requiring it in my script or I can run the executable at the command-line.</p>
+<h3>Help</h3>
+<p>Most package managers have pretty similar command-line interfaces, including <code>search</code>, <code>install</code>, <code>uninstall</code>. However, some have slightly different commands and functionality, so it always <em>helps</em> to run <code>-h</code> or <code>-help</code> to get familiar with your package manager's UI.</p>
+<h3>Super Cow Powers</h3>
+<p>When you run <code>aptitude -h</code> the output will also tell you, following a list of valid usage, actions, and options, that aptitude &quot;does not have Super Cow Powers&quot;.</p>
+<pre><code>Actions:
+install   - Install/upgrade packages.
+remove    - Remove packages.
+...
+Options:
+ -v         Display extra information. (may be supplied multiple times).
+...
+This aptitude does not have Super Cow Powers.
+</code></pre>
+<p><code>apt</code> <em>does</em> have super cow powers:</p>
+<pre><code>root@ubuntu:~# apt moo
+                 (__)
+                 (oo)
+           /------\/
+          / |    ||
+         *  /\---/\
+            ~~   ~~
+...&quot;Have you mooed today?&quot;...
+</code></pre>
+<p>Although <code>aptitude</code> doesn't have super cow powers, if you persist you might be rewarded with a drawing.</p>
+
+</div>
+
+        <div class="row footer">
+  <hr>
+  <div class="rc-scout"></div>
+  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
+  <a href="https://nicoleorchard.tumblr.com" target="_blank"><i class="fa fa-tumblr-square" style="font-size:30px"></i></a>
+  <a href="https://github.com/norchard" target="_blank"><i class="fa fa-github" style="font-size:32px"></i></a>
+  <a href="https://www.instagram.com/norchardpie/" target="_blank"><i class="fa fa-instagram" style="font-size:32px"></i></a>
+  <a href="https://www.linkedin.com/in/nicole-orchard-6441b157" target="_blank"><i class="fa fa-linkedin-square" style="font-size:32px"></i></a>
+  <a href="https://twitter.com/norchard" target="_blank"><i class="fa fa-twitter-square" style="font-size:32px"></i></a>
+
+</div>
+
+    </div>
+  </body>
+</html>
