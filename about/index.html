@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nicole Orchard</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/ghcolors.css" rel="stylesheet">
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS feed">
+    <script src="https://use.typekit.net/qnt8nxq.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+
+    <script>
+      function logoClick(){
+        if (document.getElementsByClassName("dark").length > 0){
+          document.body.classList.remove("dark")
+          sessionStorage.setItem('mode', 'light')
+        } else {
+          document.body.className = "dark"
+          sessionStorage.setItem('mode', 'dark')
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function(event) {
+        if (sessionStorage.getItem('mode') == "dark"){
+          document.body.className = "dark"
+        }
+      })
+    </script>
+  </head>
+  <body class="">
+    <div class="container">
+        <div class="nav">
+  <h4>
+    <a href="/">Nicole Orchard</a>
+  </h4>
+</div>
+
+        
+
+<img src="/img/about.png" height="300" />
+
+<h1>Hello world, I'm Chris! 🤟</h1>
+
+<p>
+  I'm Chris Bongers a webdeveloper, solution architect, blogger and lover of a
+  beatiful girlfriend and dog.
+</p>
+<p></p>
+<p>
+  I come from a mixed background being a full stack WordPress developer, a PHP
+  Symfony developer and just your good old fullstack dev.
+</p>
+<p>
+  On the web I just love beatiful things, they must look amazing, be blazing
+  fast and innovative.
+</p>
+<p>
+  I currently live in Cape Town, South Africa 🇿🇦 but my roots are in The
+  Netherlands 🇳🇱.
+</p>
+<br />
+<p>
+  Feel free to follow me on
+  <a href="https://twitter.com/DailyDevTips1" target="_blank">Twitter</a>,
+  <a href="https://www.linkedin.com/in/chrisbongers/" target="_blank"
+    >LinkedIn</a
+  >
+  or
+  <a href="https://www.facebook.com/DailyDevTipsBlog" target="_blank"
+    >Facebook</a
+  >
+</p>
+
+
+        <div class="row footer">
+  <hr>
+  <div class="rc-scout"></div>
+  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
+  <a href="https://nicoleorchard.tumblr.com" target="_blank"><i class="fa fa-tumblr-square" style="font-size:30px"></i></a>
+  <a href="https://github.com/norchard" target="_blank"><i class="fa fa-github" style="font-size:32px"></i></a>
+  <a href="https://www.instagram.com/norchardpie/" target="_blank"><i class="fa fa-instagram" style="font-size:32px"></i></a>
+  <a href="https://www.linkedin.com/in/nicole-orchard-6441b157" target="_blank"><i class="fa fa-linkedin-square" style="font-size:32px"></i></a>
+  <a href="https://twitter.com/norchard" target="_blank"><i class="fa fa-twitter-square" style="font-size:32px"></i></a>
+
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nicole Orchard</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/ghcolors.css" rel="stylesheet">
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="RSS feed">
+    <script src="https://use.typekit.net/qnt8nxq.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+
+    <script>
+      function logoClick(){
+        if (document.getElementsByClassName("dark").length > 0){
+          document.body.classList.remove("dark")
+          sessionStorage.setItem('mode', 'light')
+        } else {
+          document.body.className = "dark"
+          sessionStorage.setItem('mode', 'dark')
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function(event) {
+        if (sessionStorage.getItem('mode') == "dark"){
+          document.body.className = "dark"
+        }
+      })
+    </script>
+  </head>
+  <body class="">
+    <div class="container">
+        <div class="nav">
+  <h4>
+    <a href="/">Nicole Orchard</a>
+  </h4>
+</div>
+
+        
+</br></br>
+
+<div class="post">
+  <h1>React Minesweeper Tutorial Part 2</h1>
+  <h3>The Game (React)</h3>
+  <p>If you haven't already worked through React Minesweeper Tutorial Part 1, I suggest you do so before beginning Part 2.</p>
+<p>Let's start working on our React Minesweeper game. First, rewrite <code>index.js</code>:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span><br><span class="token keyword">import</span> ReactDOMClient <span class="token keyword">from</span> <span class="token string">'react-dom/client'</span><br><span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./components/App.jsx'</span><br><br><span class="token keyword">const</span> root <span class="token operator">=</span> ReactDOMClient<span class="token punctuation">.</span><span class="token function">createRoot</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>root<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>App<span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">)</span></code></pre>
+<p>And we'll move our <code>&lt;h1&gt;</code> into our App component: <code>src/components/App.jx</code>:</p>
+<pre class="language-jsx"><code class="language-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span><br><br><span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">Minesweeper</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><br><span class="token punctuation">}</span><br><br><span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
+<p>Let's start by creating a board component.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token operator">></span> <span class="token function">touch</span> src/components/Board.jsx</code></pre>
+<pre class="language-jsx"><code class="language-jsx"></code></pre>
+
+</div>
+
+        <div class="row footer">
+  <hr>
+  <div class="rc-scout"></div>
+  <!-- <h4><object class="logo" data="/img/nicole_web.svg" type="image/svg+xml"></object><a href="#">Nicole Orchard</a></h4> -->
+  <a href="https://nicoleorchard.tumblr.com" target="_blank"><i class="fa fa-tumblr-square" style="font-size:30px"></i></a>
+  <a href="https://github.com/norchard" target="_blank"><i class="fa fa-github" style="font-size:32px"></i></a>
+  <a href="https://www.instagram.com/norchardpie/" target="_blank"><i class="fa fa-instagram" style="font-size:32px"></i></a>
+  <a href="https://www.linkedin.com/in/nicole-orchard-6441b157" target="_blank"><i class="fa fa-linkedin-square" style="font-size:32px"></i></a>
+  <a href="https://twitter.com/norchard" target="_blank"><i class="fa fa-twitter-square" style="font-size:32px"></i></a>
+
+</div>
+
+    </div>
+  </body>
+</html>
