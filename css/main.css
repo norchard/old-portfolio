@@ -1,17 +1,3 @@
-
-/* // Variables to modify font folders
-$icon-font-path:      "../fonts/bootstrap/";
-$fa-font-path:        "../fonts/font-awesome/";
-
-// $font-family-sans-serif:  "mr-eaves-xl-modern", Helvetica, Arial, sans-serif !default;
-$headings-font-weight:    600 !default;
-$heading-color:           #111 !default;
-$font-size-base:          17px !default;
-$font-size-h1:            floor(($font-size-base * 3.2)) !default; // ~36px
-$link-hover-decoration:   none !default;
-$brand-primary:           #dbb932 !default; // #337ab7
-// $text-color:              #000 !default; */
-
 ::selection{
   background-color: #ffd42c;
 }
@@ -269,124 +255,6 @@ pre {
   padding: 20px;
 }
 
-.rc-scout {
-  float: left;
-  padding: 5px 0px;
-}
-
-.dark {
-  background-color: #1b2026;
-}
-
-.dark h1, .dark h2, .dark h3, .dark p  {
-  color: #e8eef4;
-  font-weight: 500;
-}
-
-.dark .post p a{
-  font-weight: 500;
-}
-
-.dark p {
-  font-weight: 300;
-}
-
-.dark h4 {
-  color: #36475b;
-  font-weight: 500;
-}
-
-.dark a:hover{
-  color: #bccad8;
-}
-
-.dark hr{
-  border-top: 1px solid #36475b;
-}
-
-.dark .thumbnail {
-  border-color: #36475b;
-}
-
-.dark a:hover .thumbnail{
-  border-color: #5d7a9b;
-}
-
-.dark .view {
-  color: #5d7a9b;
-}
-
-.dark ::selection{
-  background-color: #0c0f11;
-  color: #36475b;
-}
-
-.dark .post a:hover {
-  color: #bccad8;
-}
-
-.dark .logo {
-  background-image: url("/img/nicole_moon.svg");
-}
-
-.dark a .fa{
-  color: #36475b;
-}
-
-.dark a .fa:hover{
-  color: #bccad8;
-}
-
-.dark .web{
-  box-shadow: 0px 0px 5px #0c0f11;
-}
-
-.dark .glyphicon{
-  color: #5d7a9b;
-}
-
-.dark .post a {
-  border-color: #5d7a9b;
-}
-
-.dark .post a:hover {
-  color: #5d7a9b;
-}
-
-
-.dark .post p, .dark .post li{
-  // font-family: "leitura-news", serif;
-  color: #dce4ed;
-}
-
-.dark a:hover .post-item h3{
-  color: #5d7a9b;
-}
-
-.dark h3 a:hover {
-  color: #5d7a9b;
-}
-
-.dark code {
-  background-color: #0c0f11;
-  color: #9cb5d1;
-}
-
-//
-// .post-item h3:hover {
-//   color: #000;
-// }
-//
-// .post-item .view {
-//   bottom: 20px;
-//   right: 25px;
-// }
-
-// a:hover .post-item .view {
-//   bottom: 25px;
-// }
-
-
 a:hover {
   color: OrangeRed;
   text-decoration: none;
@@ -408,6 +276,10 @@ a:hover {
 @media(max-width:991px){
   .dog{
     background-image: none;
+  }
+  .title {
+    font-size: 70px;
+    line-height: 70px;
   }
 }
 
@@ -470,77 +342,6 @@ pre code {
    font-size: var(--font-size-base);
   }
 }
-
-#tattoo {
-  float: right;
-}
-
-#sun {
-  box-sizing: border-box;
-  border: solid 15px #ff4d35;
-  height: 30px;
-  width: 30px;
-  border-radius: 30px;
-  float: right;
-  transition: all 0.5s ease;
-}
-
-#sun:hover{
-  margin-top: -5px;
-}
-
-#moon {
-  box-sizing: border-box;
-  border: solid 2.5px #e0d9d9;
-  height: 30px;
-  width: 30px;
-  border-radius: 30px;
-  float: right;
-  margin-right: calc(-1 * 30px / 2.75);
-  transition: all 0.5s ease;
-}
-
-#moon:hover{
-  margin-top: -5px;
-}
-
-#night {
-  background-color: none;
-  height: calc(30px * 1.5);
-  width: calc(30px * 1.5);
-  border-radius: 30px;
-  float: right;
-  margin-right: calc(-1 * 30px / 1.5);
-  margin-top: calc(-1 * 30px / 1.85);
-  transition: all 0s linear;
-  transition-delay: 0s;
-  transform: scale(.25);
-}
-
-.dark {
-  background-color: #1d1a3b;
-}
-
-.dark body {
-  background-color: #100e21;
-  color: white;
-}
-
-.dark #sun {
-  border: solid 3px #1e47ff;
-}
-
-.dark #moon {
-    border: solid 15px #e0d9d9;
-  }
-
-.dark #night {
-    background-color: #100e21;
-    transition: all .5s ease;
-    transition-delay: 0.2s;
-    transform: scale(1);
-}
-
 
 @import "font-awesome";
 @import "bootstrap";
